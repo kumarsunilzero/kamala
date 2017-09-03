@@ -1,0 +1,15 @@
+{
+    "development":
+    {
+        "port": 5000,
+        "url": "localhost"
+    },
+    "production":
+    {
+
+    },
+    "demo":
+    {
+
+    }
+}

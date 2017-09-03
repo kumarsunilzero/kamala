@@ -1,0 +1,16 @@
+{
+  "name": "ui-server",
+  "version": "1.0.0",
+  "description": "this is a public server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "kamal bhatt",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3"
+  }
+}

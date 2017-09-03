@@ -1,0 +1,55 @@
+    .card-footer {
+        padding: 20px 15px 0px 15px;
+        border-top: 1px solid rgba(204, 204, 204, .35)
+    }
+
+    .height-500 {
+        height: 500px !important;
+    }
+
+    .border-right-2px {
+        border-right: 1px solid;
+    }
+
+    .border-top-2px {
+        border-top: 1px solid;
+    }
+
+    .card-footer-align {
+        bottom: 0px;
+        position: absolute;
+    }
+
+    .padding-20px {
+        padding: 20px !important;
+    }
+
+    .padding-left-20px {
+        padding-left: 20px;
+    }
+
+    .no-padding {
+        padding: 0px !important;
+    }
+
+    .margin-10px {
+        margin: 10px !important;
+    }
+
+    .color-green {
+        font-weight: bold;
+        color: green !important;
+    }
+
+    .color-red {
+        color: red !important;
+        font-weight: bold;
+    }
+
+    .margin-left-10px {
+        margin-left: 10px !important;
+    }
+
+    .text-align-center {
+        text-align: center !important
+    }

@@ -1,0 +1,68 @@
+<section class="content" ng-controller="dashboard as ctrl">
+    <div class="container-fluid">
+        <div class="block-header">
+            <h2>DASHBOARD</h2>
+        </div>
+        <!-- Widgets -->
+        <div class="row clearfix">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="info-box bg-pink hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">playlist_add_check</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">LAST ATTEMPTED TEST</div>
+                        <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">{{ctrl.lastAttemptedScore}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                <div class="info-box bg-cyan hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">help</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">LAST 3 BEST SCORE</div>
+                        <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20"><span ng-repeat='l in ctrl.lastThreeScore track by $index'>{{l}}</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-light-green hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">forum</i>
+                    </div>
+                    <div class="content">
+                        <div class="text">RANK</div>
+                        <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20">243</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                <div class="body table-responsive">
+                    <table class="table table-bordered table-hover" style="background-color: white;">
+                        <thead>
+                            <tr>
+                                <th colspan="6" class="text-align-center">LAST 10 Attempted Test</th>
+                            </tr>
+                        </thead>
+                        <thead>
+                            <tr>
+                                <th class="text-align-center">Test Name</th>
+                                <th colspan="5" class="text-align-center">Last 5 Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="list in ctrl.lasttenAttemotedTest">
+                                <td>{{list.quizForQualifying.title}}</td>
+                                <td ng-repeat='score in list.attemptForQualifyQuizs'>{{score.totalscore}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

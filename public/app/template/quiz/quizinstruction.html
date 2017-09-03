@@ -1,0 +1,86 @@
+<div id="wrap" ng-controller="instructions as ctrl">
+    <div id="learnyContent" class="views">
+        <div class="view view-main">
+            <div class="container" style="margin-top:30px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="testInfo">
+                            <h3 class="Inst_header">General Instructions</h3>
+                            <p class="Inst_description">1. The <span class="Inst_themeColor">clock </span>has been set on the server and countdown timer at top right corner of your screen will display the remaining time for you to complete the exam. When the clock runs out the exams ends by default- you are not required to end or submit your exam</p>
+                            <p class="Inst_description">2. The questions palette at the right of screen shows one of the following status of each of the questions numbered </p>
+                            <ul class="palet_list">
+                                <li class="col-md-4"><span class="notVisitedBg pull-left">15</span>
+                                    <p class="Inst_description" style="padding-left:35px;margin-top:2px;">You have <span class="Inst_descHighlight">not visited </span>the question yet</p>
+                                </li>
+                                <li class="col-md-8"><span class="notAnsweredBg pull-left">15</span>
+                                    <p class="Inst_description" style="padding-left:35px;margin-top:2px;">You have <span class="Inst_descHighlight"> not answered </span>the question</p>
+                                </li>
+                                <li class="col-md-4"><span class="answeredBg pull-left">15</span>
+                                    <p class="Inst_description" style="padding-left:35px;margin-top:2px;">You have <span class="Inst_descHighlight">answered </span>the question</p>
+                                </li>
+                                <li class="col-md-8"><span class="notAnw_review pull-left">15</span>
+                                    <p class="Inst_description" style="padding-left:35px;margin-top:2px;">You have <span class="Inst_descHighlight">NOT answered </span>the question but have <span class="Inst_descHighlight">marked the question for review</span></p>
+                                </li>
+                                <li class="col-md-12"><span class="answer_review pull-left">15</span>
+                                    <p class="Inst_description" style="padding-left:35px;margin-top:2px;">You have <span class="Inst_descHighlight">answered </span>the question but <span class="Inst_descHighlight">marked it for review</span></p>
+                                </li>
+                            </ul>
+                            <p class="Inst_description">The Marked for Review status simply acts as a reminder that you have set to look at the question again. If an answer is selected for a question that is Marked for Review, the answer will be considered in the final evaluation</p>
+                            <h3 class="Inst_header">Navigation to a question</h3>
+                            <p class="Inst_description">3. To select a question to answer, you can do one of the following:</p>
+                            <ul style="list-style:none;">
+                                <li>
+                                    <p class="Inst_description">Click on the <span class="Inst_descHighlight">question</span> number on the question palette at the right of your screen to go to that numbered question directly. Note that using this option does NOT save your answer to the current question</p>
+                                </li>
+                                <li>
+                                    <p class="Inst_description">Click on <span class="Inst_themeColor">Save</span> and <span class="Inst_themeColor">Next</span> to save answer to current question, <span class="Inst_descHighlight">mark it for  review</span>, and to go to the next question in sequence</p>
+                                </li>
+                                <li>
+                                    <p class="Inst_description">Click on <span class="Inst_themeColor">Mark for Review </span>and <span class="Inst_descHighlight">Next to save answer </span>to current question</p>
+                                </li>
+                            </ul>
+                            <p class="Inst_description">4. You can view the entire paper by clicking on the <span class="Inst_descHighlight">All Questions</span> button</p>
+                            <h3 class="Inst_header">Answering questions</h3>
+                            <p class="Inst_description">5. For multiple choice type question</p>
+                            <ul class="Inst_multiChoice">
+                                <li class="col-md-6">
+                                    <p class="Inst_description"><span class="Inst_descHighlight">a. To select your answer</span>, click on one of the <span class="Inst_themeColor">option</span> buttons</p>
+                                </li>
+                                <li class="col-md-6">
+                                    <p class="Inst_description"><span class="Inst_descHighlight">b. To change your answer</span>, click the another desired <span class="Inst_themeColor">option </span>button</p>
+                                </li>
+                                <li class="col-md-6">
+                                    <p class="Inst_description"><span class="Inst_descHighlight">c. To save your answer</span>, you MUST click on <span class="Inst_themeColor">save</span></p>
+                                </li>
+                                <li class="col-md-6">
+                                    <p class="Inst_description"><span class="Inst_descHighlight">d. To deselect a chosen answer</span>, click on the chosen option again or click on the <span class="Inst_themeColor">Clear Response </span>button</p>
+                                </li>
+                                <li class="col-md-12">
+                                    <p class="Inst_description"><span class="Inst_descHighlight">e. To mark a question for review</span> click on <span class="Inst_themeColor">Mark for Review &amp; Next</span> If an answer is selected for a question that is Marked for Review, the answer will be considered in the <span class="Inst_descHighlight">final evaluation</span> </p>
+                                </li>
+                            </ul>
+                            <p class="Inst_description">6. <span class="Inst_descHighlight">To change an answer</span> to a question, first select the question and then click on the new answer option followed by a click on the save button</p>
+                            <p class="Inst_description">7. Questions that are saved or marked for review after answering will ONLY be considered for evaluation</p>
+                            <h3 class="Inst_header">Navigation through sections</h3>
+                            <p class="Inst_description">8. Sections in this question paper are displayed on the top bar of the screen. Questions in a section can be viewed by clicking on the section name. The section you are currently viewing is highlighted</p>
+                            <p class="Inst_description">9. After clicking the <span class="Inst_themeColor">save  button</span> on the last question for a section,you will automatically be taken to the first question of the next section</p>
+                            <p class="Inst_description">10. You can move the mouse cursor over the section names to view the status of the questions for that section</p>
+                            <p class="Inst_description">11. You can shuffle between sections and questions anytime during the examination as per your convenience</p>
+                            <hr style="height:1px;border: 0; border-top: 2px solid #F3F4F5; margin: 1em 0; padding: 0;">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <center>
+                            <div style="margin-top:30px;margin-bottom:50px;">
+                                <a ui-sref="quiz({type:'start',id:ctrl.quizid})" class="btn btn-lg btn-3d btn-test js-startTest" type="button">
+            <span>Start!&nbsp;</span><span class="fa fa-caret-right"></span></a>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+<section class="" ng-controller="quizresult as ctrl">
+    <!-- <div class="container-fluid"> -->
+    <!-- Widgets -->
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header row">
+                    <div class="col-md-11">
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-block waves-effect pull-right" data-type="basic" ui-sref="dashboard">Exit</button>
+                    </div>
+                </div>
+                <div class="body">
+                    <div class="card">
+                        <div class="header">
+                            <div class="row clearfix">
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="info-box hover-zoom-effect">
+                                        <div class="icon bg-pink">
+                                            <i class="material-icons">email</i>
+                                        </div>
+                                        <div class="content">
+                                            <div class="text">ANSWERED</div>
+                                            <div class="number">{{ctrl.totalanswerdquestion}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="info-box hover-zoom-effect">
+                                        <div class="icon bg-blue">
+                                            <i class="material-icons">devices</i>
+                                        </div>
+                                        <div class="content">
+                                            <div class="text">UNANSWERED</div>
+                                            <div class="number">{{ctrl.totalunanswerdquestion}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="info-box hover-zoom-effect">
+                                        <div class="icon bg-light-blue">
+                                            <i class="material-icons">access_alarm</i>
+                                        </div>
+                                        <div class="content">
+                                            <div class="text">TOTAL SCORE</div>
+                                            <div class="number">{{ctrl.totalscore}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                    <div class="info-box hover-zoom-effect">
+                                        <div class="icon bg-cyan">
+                                            <i class="material-icons">gps_fixed</i>
+                                        </div>
+                                        <div class="content">
+                                            <div class="text">SCORE</div>
+                                            <div class="number">{{ctrl.mytotalscore}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="button-demo">
+                                        <button type="button" class="btn waves-effect" ng-class="{'bg-green':qlist.isAnswered && !qlist.isIncorrect,'bg-red':qlist.isAnswered && qlist.isIncorrect}" ng-repeat='qlist in ctrl.quizObj.questionsForQuiz' ng-click="ctrl.checkAnswer($index)">{{$index+1}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

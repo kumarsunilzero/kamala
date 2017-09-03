@@ -1,0 +1,96 @@
+<section class="content" ng-controller="addquiz as ctrl">
+    <toaster-container></toaster-container toaster-options="{'position-class': 'toast-bottom-right','close-button': true}">
+    <div class="container-fluid">
+        <div class="block-header">
+            <ol class="breadcrumb">
+                <li><a href="" ui-sref="quizlist">Quiz</a></li>
+                <li><a href="javascript:void(0);">Add</a></li>
+            </ol>
+        </div>
+        <div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                                QUIZ DETAILS
+                                
+                            </h2>
+                    </div>
+                    <div class="body table-responsive">
+                        <form from="addQuiz" novalidate>
+                            <div class="row clearfix">
+                                <div class="col-sm-12 form-group">
+                                    <label>Title</label>
+                                    <div class="form-line">
+                                        <input type="text" class="form-control" placeholder="Title" ng-model='ctrl.quizObj.title'>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 form-group">
+                                    <label>Description</label>
+                                    <div class="form-line">
+                                        <textarea rows="4" class="form-control no-resize" placeholder="Description ..." ng-model='ctrl.quizObj.description'></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 form-group">
+                                    <label>Total time</label>
+                                    <div class="form-line">
+                                        <input type="number" class="form-control no-resize" placeholder="Total time (seconds) ..." ng-model='ctrl.quizObj.totaltime'>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 form-group">
+                                    <label>Marks</label>
+                                    <div class="form-line">
+                                        <input type="number" class="form-control no-resize" placeholder="marks ..." ng-model='ctrl.quizObj.marks'>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 form-group">
+                                    <label>Total Score</label>
+                                    <div class="form-line">
+                                        <input type="number" class="form-control no-resize" placeholder="total score ..." ng-model='ctrl.quizObj.totalscore'>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 form-group">
+                                    <label>Level</label>
+                                    <ui-select ng-model='ctrl.quizObj.level' theme="bootstrap" title="Choose a level" required>
+                                        <ui-select-match placeholder="Select a Level ">{{$select.selected}}</ui-select-match>
+                                        <ui-select-choices repeat="level in ctrl.allAssociatedLevel">
+                                            {{level}}
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="col-sm-12 form-group">
+                                    <label>Type</label>
+                                    <div class="form-line">
+                                        <ui-select ng-model='ctrl.quizObj.type' theme="bootstrap" title="Choose a type" required>
+                                            <ui-select-match placeholder="Select a type">{{$select.selected}}</ui-select-match>
+                                            <ui-select-choices repeat="type in ctrl.allAssociatedType">
+                                                {{type}}
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-12 form-group">
+                                    <button class="btn btn-primary pull-right" type="file" ngf-select ng-model="ctrl.quizQuestions" ngf-change="ctrl.configureExcelFile($file)">ADD</button>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-sm-12 form-group">
+                                    <div ui-grid="ctrl.quizQuestionsGrid" ui-grid-grouping ui-grid-auto-resize ui-grid-resize-columns></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <button class='btn btn-primary pull-right margin-left-10px' ng-click="ctrl.saveQuiz()">SAVE</button>
+                                    <button class='btn btn-default pull-right' ui-sref="quizlist">CANCEL</button>
+                                </div>
+                            </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>

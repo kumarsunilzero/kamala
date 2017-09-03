@@ -1,0 +1,143 @@
+<section class="content" ng-controller="quizstats as ctrl">
+    <div class="container-fluid">
+        <div class="block-header">
+            <ol class="breadcrumb">
+                <li><a href="javascript:void(0);">My Quiz</a></li>
+                <li><a href="javascript:void(0);">Learn</a></li>
+            </ol>
+        </div>
+        <!-- Widgets -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>{{ctrl.quizObj.title}}
+                            </h2>
+                        <p>{{ctrl.quizObj.description}}</p>
+                        <!--   <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a ui-sref="quizinstruction({id:ctrl.quizid})" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
+                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
+                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul> -->
+                    </div>
+                    <div class="body">
+                        <div class="row clearfix">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <p><b>LEVEL : </b>{{ctrl.quizObj.level}}</p>
+                                <p><b>TYPE : </b>{{ctrl.quizObj.type}}</p>
+                                <p><b>TIME : </b>{{ctrl.quizObj.totaltime}} Minute</p>
+                                <p><b>MARKS : </b>{{ctrl.quizObj.totalscore}}</p>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 button-demo">
+                                <button class="btn waves-effect btn-info pull-right" data-type="basic" ui-sref="quizresult({id: ctrl.quizid})" ng-hide="ctrl.isFirstAttempt">View Result</button>
+                                <button class="btn btn-primary waves-effect pull-right" data-type="basic" ui-sref="quizinstruction({id:ctrl.quizid})" ng-show="ctrl.isFirstAttempt">Start</button>
+                                <button class="btn btn-default waves-effect pull-right" data-type="basic" ui-sref="quizinstruction({id:ctrl.quizid})" ng-hide="ctrl.isFirstAttempt">Retake</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="body">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" ng-class="{'active':ctrl.istab1Selected}" ng-click="ctrl.toggleTab('tab1')">
+                                <a data-toggle="tab">
+                                        <i class="material-icons">home</i> HOME
+                                    </a>
+                            </li>
+                            <li role="presentation" ng-class="{'active':ctrl.istab2Selected}" ng-click="ctrl.toggleTab('tab2')">
+                                <a data-toggle="tab">
+                                        <i class="material-icons">face</i> LEADERBOARD
+                                    </a>
+                            </li>
+                            <!--        <li role="presentation" ng-class="{'active':ctrl.istab3Selected}" ng-click="ctrl.toggleTab('tab3')">
+                                <a data-toggle="tab">
+                                        <i class="material-icons">email</i> MESSAGES
+                                    </a>
+                            </li>
+                            <li role="presentation" ng-class="{'active':ctrl.istab4Selected}" ng-click="ctrl.toggleTab('tab4')">
+                                <a data-toggle="tab">
+                                        <i class="material-icons">settings</i> SETTINGS
+                                    </a>
+                            </li> -->
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade" ng-class="{'active in':ctrl.istab1Selected}" id="home_with_icon_title">
+                                <div class="body table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>STATUS</th>
+                                                <th>SCORE</th>
+                                                <th>ATTEMPTED ON</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat='list in ctrl.userScoreList'>
+                                                <th scope="row">{{$index+1}}</th>
+                                                <td><span ng-show="list.iscomplete">COMPLETE</span></td>
+                                                <td>{{list.totalscore}}</td>
+                                                <th>{{list.attemptedon}}</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" ng-class="{'active in':ctrl.istab2Selected}" id="profile_with_icon_title">
+                                <div class="body table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>FIRST NAME</th>
+                                                <th>LAST NAME</th>
+                                                <th>SCORE</th>
+                                                <th>ATTEMPTED ON</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat='list in ctrl.usersList'>
+                                                <th scope="row">{{$index+1}}</th>
+                                                <td>{{list.firstname}}</td>
+                                                <td>{{list.lastname}}</td>
+                                                <td>{{list.totalscore}}</td>
+                                                <td>{{list.attemptedon}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!--    <div role="tabpanel" class="tab-pane fade" ng-class="{'active in':ctrl.istab3Selected}" id="messages_with_icon_title">
+                                <b>Message Content</b>
+                                <p>
+                                    Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius. Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren sadipscing mel.
+                                </p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" ng-class="{'active in':ctrl.istab4Selected}" id="settings_with_icon_title">
+                                <b>Settings Content</b>
+                                <p>
+                                    Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius. Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren sadipscing mel.
+                                </p>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

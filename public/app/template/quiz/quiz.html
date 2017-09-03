@@ -1,0 +1,94 @@
+<div class="card" ng-controller="quiz as ctrl">
+    <div class="header padding">
+        <div class="row">
+            <button class="btn btn-default waves-effect pull-right" data-type="basic" ui-sref="dashboard">Exit</button>
+        </div>
+    </div>
+    <div class="body" style="padding-bottom: 0px;">
+        <div class="row clearfix">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 border-right-2px">
+                <!-- <div class="card height-500"> -->
+                <div class="row clearfix js-sweetalert" ng-show="!ctrl.isQuizStartMode">
+                    <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                        <button class="btn waves-effect btn-primary pull-right margin-left-10px" data-type="basic" ng-click="ctrl.nextQuestion()" ng-show="!ctrl.isQuizStartMode">Next</button>
+                        <button class="btn waves-effect pull-right btn-primary " data-type="basic" ng-click="ctrl.prevQuestion()" ng-show="!ctrl.isQuizStartMode">Prev</button>
+                        <button class="btn waves-effect" data-type="basic" ui-sref="quizresult({id: ctrl.quizObj.id})">Back To Result</button>
+                    </div>
+                </div>
+                <div class="row clearfix js-sweetaler">
+                    <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 height-500">
+                        <div ng-repeat="qlist in ctrl.quizObj.questionsForQuiz">
+                            <div ng-if="ctrl.current_index === $index">
+                                <p style="font-size: 20px;"><b>Q.{{$index+1}} | </b>{{qlist.title}}</p>
+                                <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12" ng-repeat="opt in qlist.answersForQuestions">
+                                    <input type="radio" ng-model="$parent.title" name="qlist.title" value="{{opt.title}}" required ng-change="ctrl.checkButton(opt,$index,$parent.$index)" style="position: initial;left: -9999px;opacity: 1;" ng-checked="opt.isSelected" ng-disabled="!ctrl.isQuizStartMode" />
+                                    <span ng-class="{'color-green':opt.iscorrectanswer && !ctrl.isQuizStartMode,'color-red':opt.isSelected && !ctrl.isQuizStartMode}" style="font-size: 16px;">{{opt.title}}</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12" ng-show="!ctrl.isQuizStartMode && ctrl.current_index === $index">
+                                <h3>EXPLANATION</h3>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12" ng-show="!ctrl.isQuizStartMode && ctrl.current_index === $index">
+                                <div class="collapse in" id="collapseExplain" aria-controls="collapseExample" aria-expanded="true" style="height: 0px;">
+                                    <div class="well" style="background-color: white;">
+                                        {{qlist.explanation}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix js-sweetalert border-top-2px" ng-show="ctrl.isQuizStartMode">
+                    <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 padding-20px">
+                        <button class="btn btn-warning waves-effect" data-type="basic" ng-click="ctrl.reviewQuestion()">Review</button>
+                        <button class="btn btn-primary waves-effect pull-right" data-type="basic" ng-click="ctrl.nextQuestion()">Save & Next</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <!-- <div class="card height-500"> -->
+                <div class="row clearfix js-sweetalert">
+                    <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12" ng-if="ctrl.timeLeft">
+                        <h2 ng-show="ctrl.isQuizStartMode">Time Left : 
+                        <timer countdown="ctrl.timeLeft" max-time-unit="'minute'" interval="1000">{{mminutes}} minute{{minutesS}}, {{sseconds}} second{{secondsS}}</timer>
+                        </h2>
+                    </div>
+                </div>
+                <div class="row clearfix js-sweetalert">
+                    <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12" style="height: 400px">
+                        <span ng-repeat="qlist in ctrl.quizObj.questionsForQuiz" style="margin: 5px 5px 5px 5px;display: inline-block;"><button class="btn waves-effect" ng-class="{'bg-red':ctrl.current_index === $index,'bg-light-green':ctrl.selectedIndexs.indexOf($index) > -1 && ctrl.current_index !== $index,'bg-grey':ctrl.selectedIndexs.indexOf($index) === -1 && ctrl.current_index !== $index,'bg-deep-orange':qlist.isReview}" data-type="basic" ng-click="ctrl.currentQuestion($index)">{{$index+1}}</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="row clearfix js-sweetalert" ng-show="ctrl.isQuizStartMode">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn bg-grey waves-effect"></button>
+                        <b>Unanswerd</b>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn bg-light-green waves-effect"></button>
+                        <b>Answerd</b>
+                    </div>
+                    <!-- </div>
+                        <div class="row clearfix js-sweetalert padding-20px"> -->
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn bg-red waves-effect"></button>
+                        <b>Selected</b>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <button type="button" class="btn bg-deep-orange waves-effect"></button>
+                        <b>Review</b>
+                    </div>
+                </div>
+                <div class="row clearfix js-sweetalert" ng-show="ctrl.isQuizStartMode">
+                    <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                        <button class="btn btn-success waves-effect" data-type="basic" ng-click="ctrl.checkQuizStat()">Submit</button>
+                    </div>
+                </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+    <div ng-include src="'template/quiz/modals/quizstatmodal.html'"></div>
+    <div ng-include src="'template/quiz/modals/credit.html'"></div>
+</div>

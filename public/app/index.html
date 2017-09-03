@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app="mockquiz">
+
+<head>
+    <title>Onlize -Quiz</title>
+    <!-- External CSS Library -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <link href="./bower_components/adminbsb-materialdesign/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="./bower_components/adminbsb-materialdesign/plugins/node-waves/waves.min.css" rel="stylesheet" />
+    <link href="./bower_components/adminbsb-materialdesign/css/style.min.css" rel="stylesheet" />
+    <link href="./bower_components/adminbsb-materialdesign/css/themes/theme-light-blue.min.css" rel="stylesheet" />
+    <link href="./bower_components/angular-ui-grid/ui-grid.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="./bower_components/angular-ui-select/dist/select.min.css">
+    <link rel="stylesheet" type="text/css" href="./bower_components/AngularJS-Toaster/toaster.min.css">
+    <!-- Internal CSS Library -->
+    <link rel="stylesheet" type="text/css" href="./css/custom.css">
+</head>
+
+<body class="theme-light-blue">
+    <div ui-view='header'>
+    </div>
+    <div ui-view='sidebar'>
+    </div>
+    <div ui-view='maincontent'>
+    </div>
+    <div ui-view='footer'>
+    </div>
+</body>
+<!-- External JS Library -->
+<script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="./bower_components/angular-resource/angular-resource.min.js"></script>
+<script type="text/javascript" src="/bower_components/angular-animate/angular-animate.js"></script>
+<script type="text/javascript" src="./bower_components/angular-timer/dist/angular-timer.min.js"></script>
+<script type="text/javascript" src="./bower_components/moment/min/moment.min.js"></script>
+<script type="text/javascript" src="./bower_components/moment/min/locales.min.js"></script>
+<script type="text/javascript" src="./bower_components/humanize-duration/humanize-duration.js"></script>
+<script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./bower_components/angular-ui-grid/ui-grid.min.js"></script>
+<script type="text/javascript" src="./bower_components/ng-file-upload/ng-file-upload-all.min.js"></script>
+<script type="text/javascript" src="./bower_components/js-xlsx/dist/xlsx.full.min.js"></script>
+<script type="text/javascript" src="./bower_components/angular-ui-select/dist/select.min.js"></script>
+<script type="text/javascript" src="./bower_components/AngularJS-Toaster/toaster.min.js"></script>
+<!-- Internal JS  -->
+<script type="text/javascript" src="./js/app.js"></script>
+<script type="text/javascript" src="./js/config.js"></script>
+<script type="text/javascript" src="./js/controllers/quizlist.js"></script>
+<script type="text/javascript" src="./js/controllers/quiz.js"></script>
+<script type="text/javascript" src="./js/controllers/login.js"></script>
+<script type="text/javascript" src="./js/controllers/quizstats.js"></script>
+<script type="text/javascript" src="./js/controllers/quizresult.js"></script>
+<script type="text/javascript" src="./js/controllers/instruction.js"></script>
+<script type="text/javascript" src="./js/controllers/header.js"></script>
+<script type="text/javascript" src="./js/controllers/dashboard.js"></script>
+<script type="text/javascript" src="./js/controllers/allquiz.js"></script>
+<script type="text/javascript" src="./js/controllers/addquiz.js"></script>
+<script type="text/javascript" src="./js/services/requestHandler.js"></script>
+<script type="text/javascript" src="./js/services/quizscore.js"></script>
+<script type="text/javascript" src="./js/services/utils.js"></script>
+
+</html>
