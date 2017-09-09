@@ -4,7 +4,12 @@
     }
 
     .height-450 {
-        height: 430px !important;
+        min-height: 440px !important;
+        overflow: auto;
+    }
+
+    .height-480 {
+        min-height: 500px !important;
         overflow: auto;
     }
 
@@ -13,7 +18,7 @@
     }
 
     .border-top-2px {
-        border-top: 2px solid !important;
+        border-top: 3px solid grey !important;
     }
 
     .card-footer-align {
@@ -54,6 +59,10 @@
 
     .margin-left-10px {
         margin-left: 10px !important;
+    }
+
+    .padding-10px {
+        padding: 15px !important;
     }
 
     .text-align-center {

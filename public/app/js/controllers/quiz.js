@@ -1,4 +1,4 @@
-angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', 'requestHandler', '$window', '$timeout', 'quizscore', function($scope, $state, requestHandler, $window, $timeout, quizscore) {
+angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', 'requestHandler', '$window', '$timeout', 'quizscore', 'toaster', function($scope, $state, requestHandler, $window, $timeout, quizscore, toaster) {
 
     var vm = this;
     console.log($scope, vm)
@@ -93,7 +93,9 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
     }
 
     vm.reviewQuestion = function() {
+
         vm.quizObj.questionsForQuiz[vm.current_index]["isReview"] = true;
+        vm.nextQuestion();
     }
 
     vm.checkQuizStat = function() {
