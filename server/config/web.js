@@ -6,6 +6,8 @@
  *
  * @see {@link http://trailsjs.io/doc/config/web}
  */
+var env = require('./env');
+var config = env[process.env.NODE_ENV]
 module.exports = {
 
   /**
@@ -18,12 +20,7 @@ module.exports = {
    */
   options: {
     routes: {
-      cors: {
-        "origin": [
-          "http://localhost:5000"
-        ],
-        "headers": ["Accept", "Authorization", "Content-Type", "If-None-Match", "Accept-language"]
-      },
+      cors: config.cors
     }
   },
   host: process.env.HOST || '0.0.0.0'

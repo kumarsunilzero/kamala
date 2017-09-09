@@ -12,7 +12,7 @@ angular.module('mockquiz.controllers').controller('login', ['$scope', '$state', 
             url = 'facebooklogin/';
         }
         requestHandler.post(url).save(vm.user).$promise.then(function(response) {
-            console.log(response);
+            //console.log(response);
             if (response.status === 200) {
                 $window.sessionStorage.userid = response.data.id;
                 $state.go('dashboard');
@@ -23,24 +23,32 @@ angular.module('mockquiz.controllers').controller('login', ['$scope', '$state', 
     }
 
     vm.signup = function() {
-        console.log("--", vm.signupdata);
-        if (validatePassword(vm.signupdata.password, vm.signupdata.confpassword)) {
-            var sendObj = {
-                firstname: vm.signupdata.firstname,
-                lastname: vm.signupdata.lastname,
-                email: vm.signupdata.email,
-                password: vm.signupdata.password,
-                isagreeterms: vm.signupdata.isagreeterms
-            }
-            requestHandler.post('user/signup/').save(sendObj).$promise.then(function(res) {
-                console.log(res);
-                if (res.status === 200) {
-                    console.log('herr');
-                    //$state.go('login');
+        //console.log("--", vm.signupdata);
+        if (Object.keys(vm.signupdata).length === 6) {
+            if (validatePassword(vm.signupdata.password, vm.signupdata.confpassword)) {
+                var sendObj = {
+                    firstname: vm.signupdata.firstname,
+                    lastname: vm.signupdata.lastname,
+                    email: vm.signupdata.email,
+                    password: vm.signupdata.password,
+                    isagreeterms: vm.signupdata.isagreeterms
                 }
-            })
+                requestHandler.post('user/signup/').save(sendObj).$promise.then(function(res) {
+                    //console.log(res);
+                    if (res.status === 200) {
+                        //console.log('herr');
+                        vm.errorMessage = "Your Registration is Successful.";
+                        $state.go('signin');
+                        //vm.errorMessage = "Password does not match.Please enter Same password.";
+                    } else if (res.status === 201) {
+                        vm.errorMessage = res.message;
+                    }
+                })
+            } else {
+                vm.errorMessage = "Password does not match.Please enter Same password.";
+            }
         } else {
-
+            vm.errorMessage = "Please fill all fields Correctly.";
         }
 
     }

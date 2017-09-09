@@ -3,8 +3,9 @@
         border-top: 1px solid rgba(204, 204, 204, .35)
     }
 
-    .height-500 {
-        height: 500px !important;
+    .height-450 {
+        height: 470px !important;
+        overflow: auto;
     }
 
     .border-right-2px {
@@ -12,7 +13,7 @@
     }
 
     .border-top-2px {
-        border-top: 1px solid;
+        border-top: 2px solid !important;
     }
 
     .card-footer-align {
@@ -21,11 +22,11 @@
     }
 
     .padding-20px {
-        padding: 20px !important;
+        padding: 30px !important;
     }
 
-    .padding-left-20px {
-        padding-left: 20px;
+    .padding-left-30px {
+        padding-left: 30px;
     }
 
     .no-padding {
@@ -41,6 +42,11 @@
         color: green !important;
     }
 
+    .color-white {
+        font-weight: bold;
+        color: white !important;
+    }
+
     .color-red {
         color: red !important;
         font-weight: bold;
@@ -52,4 +58,12 @@
 
     .text-align-center {
         text-align: center !important
+    }
+
+    .noborder {
+        border: 0px !important;
+    }
+
+    .bg-light-grey {
+        background-color: #f4f4f6;
     }

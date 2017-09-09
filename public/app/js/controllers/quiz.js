@@ -22,13 +22,14 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
         if ($state.params.type === 'solution') {
             vm.isQuizStartMode = false;
             requestHandler.get('quiz/result/', { id: $state.params.id, userid: parseInt($window.sessionStorage.userid) }).query(function(response) {
-                console.log("hh", response)
+                //console.log("hh", response)
                 if (response.status === 200) {
                     //vm.current_index = $state.params.qid;
                     vm.quizAnsMap = {};
-                    if (response.data.result.attemptForQualifyQuizs.length > 0) {
-                        for (var i in response.data.result.attemptForQualifyQuizs[0].answersForAttemptedQuizs) {
-                            vm.quizAnsMap[response.data.result.attemptForQualifyQuizs[0].answersForAttemptedQuizs[i].questionid] = response.data.result.attemptForQualifyQuizs[0].answersForAttemptedQuizs[i].option;
+                    if (response.data.result[0].attemptForQualifyQuizs.length > 0) {
+                        var resultData = response.data.result[0].attemptForQualifyQuizs[response.data.result[0].attemptForQualifyQuizs.length - 1];
+                        for (var i in resultData.answersForAttemptedQuizs) {
+                            vm.quizAnsMap[resultData.answersForAttemptedQuizs[i].questionid] = resultData.answersForAttemptedQuizs[i].option;
                         }
                     }
                     vm.quizObj = response.data.quiz;
@@ -134,6 +135,7 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
         //console.log("????", vm.sendObj);
         vm.sendObj['iscomplete'] = true;
         vm.sendObj['attemptedon'] = new Date();
+        //console.log(vm.sendObj);
         requestHandler.post('submitquiz/').save(vm.sendObj).$promise.then(function(res) {
             console.log(res);
             if (res.status === 200) {

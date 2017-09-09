@@ -117,7 +117,7 @@ module.exports = class QuizController extends Controller {
         }]
       }]
     }).then((response) => {
-      this.app.orm.QualifiedQuizs.findOne({
+      this.app.orm.QualifiedQuizs.findAll({
         where: {
           UserId: request.query.userid,
           quizId: request.query.id
@@ -125,10 +125,6 @@ module.exports = class QuizController extends Controller {
         include: [{
           model: this.app.orm.AttemptedQuizs,
           as: "attemptForQualifyQuizs",
-          limit: 1,
-          order: [
-            ['createdAt', 'DESC']
-          ],
           include: [{
             model: this.app.orm.AttemptedQuizsAnswer,
             as: "answersForAttemptedQuizs",

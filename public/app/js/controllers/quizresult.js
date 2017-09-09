@@ -10,9 +10,10 @@ angular.module('mockquiz.controllers').controller('quizresult', ['$scope', '$sta
             console.log("hh", response)
             if (response.status === 200) {
                 vm.quizAnsMap = {};
-                if (response.data.result.attemptForQualifyQuizs.length > 0) {
-                    for (var i in response.data.result.attemptForQualifyQuizs[0].answersForAttemptedQuizs) {
-                        vm.quizAnsMap[response.data.result.attemptForQualifyQuizs[0].answersForAttemptedQuizs[i].questionid] = response.data.result.attemptForQualifyQuizs[0].answersForAttemptedQuizs[i].option;
+                if (response.data.result[0].attemptForQualifyQuizs.length > 0) {
+                    var resultData = response.data.result[0].attemptForQualifyQuizs[response.data.result[0].attemptForQualifyQuizs.length - 1];
+                    for (var i in resultData.answersForAttemptedQuizs) {
+                        vm.quizAnsMap[resultData.answersForAttemptedQuizs[i].questionid] = resultData.answersForAttemptedQuizs[i].option;
                     }
                 }
                 vm.quizObj = response.data.quiz;

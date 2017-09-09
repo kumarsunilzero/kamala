@@ -1,4 +1,4 @@
-angular.module('mockquiz.controllers').controller('addquiz', ['$scope', 'requestHandler', '$rootScope', 'utils', 'toaster', function($scope, requestHandler, $rootScope, utils, toaster) {
+angular.module('mockquiz.controllers').controller('addquiz', ['$scope', 'requestHandler', '$rootScope', 'utils', 'toaster', '$state', function($scope, requestHandler, $rootScope, utils, toaster, $state) {
 
     var vm = this;
     vm.allAssociatedLevel = ['Easy', 'Hard', 'Medium'];
@@ -27,7 +27,7 @@ angular.module('mockquiz.controllers').controller('addquiz', ['$scope', 'request
     vm.quizObj = {};
     vm.initialLoadfunction = function() {
         requestHandler.get('quizs/').query(function(response) {
-            console.log("hh", response)
+            //console.log("hh", response)
             if (response.status === 200) {
                 vm.quizlistArray = response.data;
             }
@@ -35,7 +35,7 @@ angular.module('mockquiz.controllers').controller('addquiz', ['$scope', 'request
     }
 
     vm.configureExcelFile = function(file) {
-        console.log(file);
+        //console.log(file);
         try {
             if (file.name.split('.')[1] === 'xlsx' || file.name.split('.')[1] === 'xls') {
                 var reader = new FileReader();
@@ -66,12 +66,17 @@ angular.module('mockquiz.controllers').controller('addquiz', ['$scope', 'request
                         // if (questionExcel !== undefined && questionExcel.length > 0) {
                         //     vm.questionExcelData = questionExcel.Questions;
                         // }
+                    } else {
+                        toaster.pop('error', "Upload Excel", "Uploaded Excel is not valid.")
                     }
                 }
                 reader.readAsBinaryString(file);
+            } else {
+                toaster.pop('error', "Upload Excel", "Please Enter .xlsx or .xls format template.")
             }
         } catch (err) {
-            console.log("err", err);
+            //console.log("err", err);
+            toaster.pop('error', "Upload Excel", "Please Enter Correct template.")
         }
     }
 

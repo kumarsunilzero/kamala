@@ -18,7 +18,8 @@ angular.module('mockquiz', [
         'ui.select',
         'ngFileUpload',
         'ngAnimate',
-        'toaster'
+        'toaster',
+        'myApp.config'
     ])
     .run(['$rootScope', '$state', function($rootScope, $state) {
         $rootScope.signOut = function() {

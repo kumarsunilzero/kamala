@@ -18,6 +18,12 @@ module.exports = {
       migrate: 'alter'
     }
   },
+  cors: {
+    "origin": [
+      "http://localhost:5000"
+    ],
+    "headers": ["Accept", "Authorization", "Content-Type", "If-None-Match", "Accept-language"]
+  },
   socialMedia: {
     'facebookAuth': {
       'clientID': '424661704587611', // your App ID
