@@ -25,9 +25,9 @@
                             <div ng-if="ctrl.current_index === $index">
                                 <p style="font-size: 20px;"><b>Q.{{$index+1}} | </b>{{qlist.title}}</p>
                                 <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12" ng-repeat="opt in qlist.answersForQuestions">
-                                    <div ng-click="ctrl.checkButton(opt,$index,$parent.$index)" style="cursor: pointer;padding: 10px;font-weight: bold;font-size: 20px;" class="demo-radio-button">
-                                        <input type="radio" ng-model="$parent.title" name="qlist.title" value="{{opt.title}}" required ng-checked="opt.isSelected" ng-disabled="!ctrl.isQuizStartMode" />
-                                        <label for="qlist.title" style="font-size: 20px;">
+                                    <div ng-disabled="!ctrl.isQuizStartMode" ng-click="ctrl.checkButton(opt,$index,$parent.$index)" style="cursor: pointer;padding: 10px;font-weight: bold;font-size: 20px;" class="demo-radio-button">
+                                        <input type="radio" ng-model="$parent.title" name="qlist.title" value="{{opt.title}}" required ng-checked="opt.isSelected" />
+                                        <label for="qlist.title" style="font-size: 20px;" ng-class="{'bg-green':!ctrl.isQuizStartMode && opt.isSelected,'bg-red':!ctrl.isQuizStartMode && opt.iscorrectanswer}">
                                             <b> {{$index+1}} ) {{opt.title}} </b></label>
                                     </div>
                                 </div>
@@ -62,7 +62,7 @@
                 </div>
                 <div class="row clearfix js-sweetalert">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-20px color-white height-450">
-                        <span ng-repeat="qlist in ctrl.quizObj.questionsForQuiz" style="margin: 5px 5px 5px 5px;display: inline-block;"><button class="btn waves-effect" ng-class="{'bg-red':ctrl.current_index === $index,'bg-light-green':ctrl.selectedIndexs.indexOf($index) > -1 && ctrl.current_index !== $index,'bg-default':ctrl.selectedIndexs.indexOf($index) === -1 && ctrl.current_index !== $index,'bg-deep-orange':qlist.isReview}" data-type="basic" ng-click="ctrl.currentQuestion($index)"><b>{{$index+1}}</b></button>
+                        <span ng-repeat="qlist in ctrl.quizObj.questionsForQuiz" style="margin: 5px 5px 5px 5px;display: inline-block;"><button class="btn waves-effect" ng-class="{'bg-red':ctrl.current_index === $index,'bg-light-green':ctrl.selectedIndexs.indexOf($index) > -1 && ctrl.current_index !== $index,'bg-default':ctrl.selectedIndexs.indexOf($index) === -1 && ctrl.current_index !== $index,'bg-deep-orange':qlist.isReview'}" data-type="basic" ng-click="ctrl.currentQuestion($index)"><b>{{$index+1}}</b></button>
                                     </span>
                     </div>
                 </div>

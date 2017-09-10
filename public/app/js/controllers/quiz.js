@@ -18,7 +18,7 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
     vm.getQuiz = function() {
 
         //$state.params.type = 'solution';
-        //console.log("hhhh", $state);
+        console.log("hhhh", $state);
         if ($state.params.type === 'solution') {
             vm.isQuizStartMode = false;
             requestHandler.get('quiz/result/', { id: $state.params.id, userid: parseInt($window.sessionStorage.userid) }).query(function(response) {
@@ -46,6 +46,7 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
 
                         })
                     })
+                    vm.current_index = $state.params.qid;
 
 
                 }
@@ -82,13 +83,15 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
 
     vm.checkButton = function(opt, index, qindex) {
         //console.log(index, opt, qindex);
-        vm.selectedIndexs.push(qindex);
-        vm.quizObj.questionsForQuiz[vm.current_index].answersForQuestions.forEach(function(obj, ind) {
-            obj.isSelected = false;
-            if (index === ind) {
-                obj.isSelected = true;
-            }
-        });
+        if (vm.isQuizStartMode) {
+            vm.selectedIndexs.push(qindex);
+            vm.quizObj.questionsForQuiz[vm.current_index].answersForQuestions.forEach(function(obj, ind) {
+                obj.isSelected = false;
+                if (index === ind) {
+                    obj.isSelected = true;
+                }
+            });
+        }
         //vm.questionArray[vm.current_index].options[index].isSelected = true;
     }
 

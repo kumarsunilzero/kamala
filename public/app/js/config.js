@@ -152,6 +152,9 @@ angular.module('mockquiz').config(['$stateProvider', function($stateProvider) {
                 "footer": {
                     'templateUrl': "template/no-footer.html"
                 }
+            },
+            params: {
+                qid: 0
             }
         })
         .state('quizresult', {
