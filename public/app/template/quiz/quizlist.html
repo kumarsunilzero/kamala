@@ -5,31 +5,32 @@
         </div>
         <!-- Widgets -->
         <div class="row clearfix">
-            <div class="col-md-4" ng-repeat="item in ctrl.quizlistArray">
+            <div class="col-md-3 col-lg-3 col-sm-6 col-xs-6" ng-repeat="item in ctrl.quizlistArray">
                 <div class="card">
-                    <div class="header bg-cyan">
-                        <h2>
-                                {{item.title}}
-                            </h2>
-                        <ul class="header-dropdown m-r--5">
-                            <li title="Take Quiz">
-                                <a ui-sref="learnquiz({id:item.id})">  <i class="material-icons">call_missed_outgoing</i></a>
-                            </li>
-                            <!-- <li class="dropdown">
-                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a class=" waves-effect waves-block">Action</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
-                                </ul>
-                            </li> -->
-                        </ul>
+                    <div class="header bg-default no-padding">
+                        <img src="/image/quiz.jpg" style="width: 100%;">
                     </div>
                     <div class="body">
+                        <h4>
+                                {{item.title}}
+                            </h4>
                         <div class="row">
-                            <div class="col-md-12">{{item.description}}</div>
+                            <div class="col-md-12 card-text" title="{{item.description}}">{{item.description}}</div>
+                        </div>
+                        <div class="row light-text">
+                            <div class="col-md-12">
+                                <i class="material-icons">schedule</i> <span class="icon-name position-abs margin-left-10px">{{item.totaltime}} minutes</span>
+                            </div>
+                        </div>
+                        <div class="row light-text">
+                            <div class="col-md-12">
+                                <span>{{item.questionsForQuiz.length}} questions</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn waves-effect btn-danger btn-block pull-right" ui-sref="learnquiz({id: item.id})">Take Quiz</button>
+                            </div>
                         </div>
                     </div>
                 </div>

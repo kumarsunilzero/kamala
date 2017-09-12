@@ -76,3 +76,25 @@
     .bg-light-grey {
         background-color: #f4f4f6;
     }
+
+    .light-text {
+        font-size: 14px;
+        color: #465163;
+        font-weight: bold;
+    }
+
+    .card-text {
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        min-height: 40px;
+        height: 40px;
+        overflow: hidden;
+    }
+
+    .position-abs {
+        position: absolute;
+    }
+
+    .text-aligncenter {
+        text-align: center;
+    }

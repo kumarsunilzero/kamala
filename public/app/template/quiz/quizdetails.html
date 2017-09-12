@@ -2,8 +2,8 @@
     <div class="container-fluid">
         <div class="block-header">
             <ol class="breadcrumb">
-                <li><a href="javascript:void(0);">My Quiz</a></li>
-                <li><a href="javascript:void(0);">Learn</a></li>
+                <li><a href="javascript:void(0);">MY QUIZ</a></li>
+                <li><a href="javascript:void(0);">LEARN</a></li>
             </ol>
         </div>
         <!-- Widgets -->
@@ -11,36 +11,40 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>{{ctrl.quizObj.title}}
-                            </h2>
-                        <p>{{ctrl.quizObj.description}}</p>
-                        <!--   <ul class="header-dropdown m-r--5">
-                            <li class="dropdown">
-                                <a ui-sref="quizinstruction({id:ctrl.quizid})" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        <i class="material-icons">more_vert</i>
-                                    </a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                    <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else here</a></li>
-                                </ul>
-                            </li>
-                        </ul> -->
+                        <img src="/image/quiz.jpg" width="100%">
                     </div>
                     <div class="body">
                         <div class="row clearfix">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <p><b>LEVEL : </b>{{ctrl.quizObj.level}}</p>
-                                <p><b>TYPE : </b>{{ctrl.quizObj.type}}</p>
-                                <p><b>TIME : </b>{{ctrl.quizObj.totaltime}} Minute</p>
-                                <p><b>MARKS : </b>{{ctrl.quizObj.totalscore}}</p>
+                            <div class="col-xs-12">
+                                <h3>{{ctrl.quizObj.title}}</h3>
                             </div>
                         </div>
                         <div class="row clearfix">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 button-demo">
-                                <button class="btn waves-effect btn-info pull-right" data-type="basic" ui-sref="quizresult({id: ctrl.quizid})" ng-hide="ctrl.isFirstAttempt">View Result</button>
-                                <button class="btn btn-primary waves-effect pull-right" data-type="basic" ui-sref="quizinstruction({id:ctrl.quizid})" ng-show="ctrl.isFirstAttempt">Start</button>
-                                <button class="btn btn-default waves-effect pull-right" data-type="basic" ui-sref="quizinstruction({id:ctrl.quizid})" ng-hide="ctrl.isFirstAttempt">Retake</button>
+                            <div class="col-xs-9">
+                                {{ctrl.quizObj.description}}
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="row clearfix">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 light-text">
+                                        {{ctrl.quizObj.level}} Level
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 light-text">
+                                        {{ctrl.quizObj.type}} Type
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 light-text">
+                                        {{ctrl.quizObj.totaltime}} Minutes
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 light-text">
+                                        {{ctrl.quizObj.totalscore}} Marks
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 button-demo">
+                                        <button class="btn waves-effect btn-danger btn-block pull-right" data-type="basic" ui-sref="quizresult({id: ctrl.quizid})" ng-hide="ctrl.isFirstAttempt">Go To Result</button>
+                                        <button class="btn btn-success btn-block waves-effect pull-right" data-type="basic" ui-sref="quizinstruction({id:ctrl.quizid})" ng-show="ctrl.isFirstAttempt">Start</button>
+                                        <button class="btn btn-success btn-block waves-effect pull-right" data-type="basic" ui-sref="quizinstruction({id:ctrl.quizid})" ng-hide="ctrl.isFirstAttempt">Retake</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

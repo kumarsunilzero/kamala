@@ -1,15 +1,15 @@
 <div class="modal fade in" id="quizStatModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content text-aligncenter">
             <div class="modal-header">
-                <h4 class="modal-title" id="defaultModalLabel">Quiz Summary</h4>
+                <h2 class="" id="defaultModalLabel">Quiz Summary</h2>
             </div>
             <div class="modal-body">
                 <div class="row form-group">
-                    <div class="col-md-3">Completed</div>
-                    <div class="col-md-3">Incompleted</div>
-                    <div class="col-md-3">Total Question</div>
-                    <div class="col-md-3">Reviewd</div>
+                    <div class="col-md-3"><b>Completed</b></div>
+                    <div class="col-md-3"><b>Incompleted</b></div>
+                    <div class="col-md-3"><b>Total Question</b></div>
+                    <div class="col-md-3"><b>Reviewed</b></div>
                 </div>
                 <div class="row form-group">
                     <div class="col-md-3">{{ctrl.totalanswerdquestion}}</div>
@@ -20,14 +20,16 @@
                 <div class="row form-group">
                     <div class="col-md-12">
                         <div class="alert alert-danger col-md-12">
-                            <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                            Before you submit this make sure that you have attented all questions.
+                            <br>
+                            <strong>Are you sure again?</strong>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link waves-effect" ng-click="ctrl.submitQuiz()">SUBMIT</button>
-                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                <button type="button" class="btn btn-success waves-effect" ng-click="ctrl.submitQuiz()">SUBMIT</button>
+                <button type="button" class="btn btn-grey waves-effect" data-dismiss="modal">GO BACK</button>
             </div>
         </div>
     </div>

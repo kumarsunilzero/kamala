@@ -15,6 +15,10 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
     // vm.time = {
     //   timeLeft: 0
     //};
+    $scope.$on('timer-stopped', function(event, data) {
+        //console.log('Timer Stopped - data = ', data);
+        vm.checkQuizStat(true);
+    });
     vm.getQuiz = function() {
 
         //$state.params.type = 'solution';
@@ -58,6 +62,7 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
                     vm.QualifiedQuizId = response.data.qualifiedquiz.id;
                     vm.quizObj = response.data.quiz[0];
                     vm.timeLeft = parseInt(vm.quizObj.totaltime) * 60;
+                    //vm.timeLeft = 10;
                 }
                 $scope.$broadcast('timer-start')
             });
@@ -74,6 +79,8 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
     vm.nextQuestion = function() {
         if (vm.current_index < vm.quizObj.questionsForQuiz.length - 1) {
             vm.current_index++;
+        } else if (vm.isQuizStartMode) {
+            $("#lastQuesModal").modal('show');
         }
     };
 
@@ -101,7 +108,7 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
         vm.nextQuestion();
     }
 
-    vm.checkQuizStat = function() {
+    vm.checkQuizStat = function(timeComplete) {
         vm.sendObj = {};
 
         vm.mytotalreviewed = 0;
@@ -112,8 +119,8 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
         vm.sendObj['qualifyQuizId'] = vm.QualifiedQuizId;
         vm.sendObj['answersForAttemptedQuizs'] = [];
         vm.sendObj['isretake'] = false;
-        vm.sendObj['totalscore'] = quizscore.calculateQuizTotalScore(vm.quizObj.questionsForQuiz);
-        vm.totalscore = vm.quizObj.questionsForQuiz.length;
+        vm.sendObj['totalscore'] = quizscore.calculateQuizTotalScore(vm.quizObj.questionsForQuiz, vm.quizObj.marks, 0.25);
+        vm.totalscore = vm.quizObj.totalscore;
         angular.forEach(vm.quizObj.questionsForQuiz, function(value, index) {
             var isAnswered = false;
             if (value.isReview) {
@@ -132,11 +139,17 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
                 vm.totalanswerdquestion++;
             }
         })
-
-        $("#quizStatModal").modal('show');
+        if (timeComplete !== undefined) {
+            vm.submitQuiz();
+        } else {
+            $("#quizStatModal").modal('show');
+        }
     }
 
     vm.submitQuiz = function() {
+
+        $("#quizStatModal").modal('hide');
+        $("#quizSubmit").modal('show');
         //console.log("????", vm.sendObj);
         vm.sendObj['iscomplete'] = true;
         vm.sendObj['attemptedon'] = new Date();
@@ -145,7 +158,8 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
             console.log(res);
             if (res.status === 200) {
                 console.log('herr');
-                $("#quizStatModal").modal('hide');
+
+                $("#quizSubmit").modal('hide');
                 $timeout(function() {
                     $state.go('quizresult', { id: $state.params.id });
                 }, 1000);
@@ -161,6 +175,11 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
 
         $("#creditModal").modal('hide');
         (vm.isExplanationEnabled) ? vm.isExplanationEnabled = false: vm.isExplanationEnabled = true;
+    }
+
+    vm.popSubmitAfterLast = function() {
+        $("#lastQuesModal").modal('hide');
+        vm.checkQuizStat();
     }
 
 }])

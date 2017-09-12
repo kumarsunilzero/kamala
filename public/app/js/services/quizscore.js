@@ -10,9 +10,9 @@ angular.module('mockquiz.services').service('quizscore', ['$resource', '$q', '$h
                 if (arguments[0][i].answersForQuestions[j].isSelected !== undefined &&
                     arguments[0][i].answersForQuestions[j].isSelected) {
                     if (arguments[0][i].answersForQuestions[j].iscorrectanswer) {
-                        totalScore = totalScore + 1;
+                        totalScore = totalScore + arguments[1];
                     } else {
-                        totalScore = totalScore - 0.25;
+                        totalScore = totalScore - arguments[2];
                     }
                 }
             }

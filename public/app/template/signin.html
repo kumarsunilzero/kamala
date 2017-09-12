@@ -1,5 +1,5 @@
 <div class="login-page" ng-controller="login as ctrl">
-    <div class="login-box">
+    <div class="login-box" style="background-color: inherit;">
         <div class="logo">
             <a href="javascript:void(0);">Mock<b>QUIZ</b></a>
             <small>Practice exams</small>
@@ -30,8 +30,10 @@
                             <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink">
                             <label for="rememberme">Remember Me</label>
                         </div>
-                        <div class="col-xs-4">
-                            <button class="btn btn-block bg-pink waves-effect" type="submit" ng-click="ctrl.login('local')" ng-disabled="sign_in_form.$invalid">SIGN IN</button>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button class="btn btn-block btn-danger waves-effect" ng-click="ctrl.login('local')">SIGN IN</button>
                         </div>
                     </div>
                     <div class="row m-t-15 m-b--20">
