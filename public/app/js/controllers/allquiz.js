@@ -4,19 +4,13 @@ angular.module('mockquiz.controllers').controller('allquiz', ['$scope', 'request
     vm.quizlistGrid = {
         columnDefs: [{
                 displayName: 'Title',
-                name: 'title'
+                name: 'title',
+                cellTemplate: "<div ng-bind-html='row.entity.title'></div>"
             },
             {
                 displayName: 'Description',
-                name: 'description'
-            },
-            {
-                displayName: 'Total Marks',
-                name: 'totalmarks'
-            },
-            {
-                displayName: 'Marks',
-                name: 'marks'
+                name: 'description',
+                cellTemplate: "<div ng-bind-html='row.entity.description'></div>"
             },
             {
                 displayName: 'Total Time',
@@ -28,13 +22,19 @@ angular.module('mockquiz.controllers').controller('allquiz', ['$scope', 'request
             }, {
                 displayName: 'Type',
                 name: 'type'
+            },
+            {
+                name: 'action',
+                displayName: 'Action',
+                cellTemplate: '<div><span class="btn" title="Edit" ui-sref="addquiz({type:\'update\',id:row.entity.id})"><i class="material-icons">mode_edit</i></span></div>'
             }
         ],
         data: []
     }
+
     vm.initialLoadfunction = function() {
-        requestHandler.get('quizs/').query(function(response) {
-            //console.log("hh", response)
+        requestHandler.get('quizs/', { association: 1 }).query(function(response) {
+            console.log("hh", response)
             if (response.status === 200) {
                 var dataArray = [];
                 angular.forEach(response.data, function(val, index) {
@@ -42,14 +42,24 @@ angular.module('mockquiz.controllers').controller('allquiz', ['$scope', 'request
                         title: val.title,
                         description: val.description,
                         totaltime: val.totaltime,
-                        totalmarks: val.totalscore,
-                        marks: val.marks,
                         type: val.type,
-                        level: val.level
+                        level: val.level,
+                        id: val.id,
+                        status: val.isApproved
                     })
                 })
+                vm.quizlistGrid.data = [];
                 vm.quizlistGrid.data = dataArray;
             }
         });
+    }
+
+    vm.deleteQuiz = function(id) {
+        requestHandler.delete('quiz/delete/', { id: id }).delete(function(response) {
+            console.log(response);
+            if (response.status === 200) {
+                vm.initialLoadfunction();
+            }
+        })
     }
 }])

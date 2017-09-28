@@ -13,12 +13,13 @@ module.exports = class Quiz extends Model {
       options: {
         classMethods: {
           associate: (models) => {
-            models.Quiz.hasMany(models.QuizQuestions, {
-              as: 'questionsForQuiz',
+            models.Quiz.hasMany(models.QuizsMap, {
+              as: 'quizsMap',
               onDelete: 'CASCADE',
               onUpdate: 'CASCADE',
               foreignKey: {
-                allowNull: false
+                allowNull: false,
+                name: 'quizId'
               }
             })
           }
@@ -40,14 +41,11 @@ module.exports = class Quiz extends Model {
       type: {
         type: Sequelize.STRING
       },
-      totalscore: {
-        type: Sequelize.INTEGER
-      },
       description: {
         type: Sequelize.STRING
       },
-      marks: {
-        type: Sequelize.INTEGER
+      isApproved: {
+        type: Sequelize.BOOLEAN
       }
     }
   }

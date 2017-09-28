@@ -24,4 +24,15 @@ angular.module('mockquiz.services', []).service('requestHandler', ['$resource', 
             stripTrailingSlashes: false
         });
     }
+
+    this.delete = function(url, params) {
+        var host = EnvironmentConfig.api;
+        return $resource(host + url, params, {
+            delete: {
+                method: 'DELETE'
+            }
+        }, {
+            stripTrailingSlashes: false
+        });
+    }
 }])

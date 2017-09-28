@@ -4,20 +4,122 @@ const Controller = require('trails/controller')
 
 module.exports = class QuizController extends Controller {
 
-  getAllQuiz(request, reply) {
-    console.log('here I am')
-    this.app.orm.Quiz.findAll({
+  addQuiz(request, reply) {
+    let quiz = request.payload.quiz;
+    quiz['quizsMap'] = [];
+    let questions = request.payload.questions;
+    for (let i = 0; i < questions.length; i++) {
+      quiz['quizsMap'].push({
+        questionId: questions[i]
+      });
+    }
+    //console.log(dataArray);
+    this.app.orm.Quiz.create(quiz, {
       include: [{
-        model: this.app.orm.QuizQuestions,
-        as: "questionsForQuiz",
-        include: [{
-          model: this.app.orm.QuizAnswers,
-          as: "answersForQuestions"
-        }]
+        model: this.app.orm.QuizsMap,
+        as: 'quizsMap'
       }]
-    }).then((response) => {
-      reply({ status: 200, message: 'Request successfully completed.', data: response })
+    }).then((quiz) => {
+      console.log("............", quiz);
+
+
+      reply({
+        status: 200,
+        message: 'Quiz Has been uploaded successfully'
+      })
+    });
+  }
+
+  updateQuiz(request, reply) {
+    let quiz = request.payload.quiz;
+    let deletedIds = request.payload.deletedqid;
+    let updateIds = request.payload.updatedqid;
+    let promise = [];
+    let dataArray = [];
+    for (let i = 0; i < updateIds.length; i++) {
+      dataArray.push({
+        questionId: updateIds[i],
+        quizId: quiz.id
+      })
+    }
+    console.log(dataArray, deletedIds);
+    promise.push(this.app.orm.Quiz.update(quiz, { where: { id: quiz.id } }));
+    promise.push(this.app.orm.QuizsMap.destroy({ where: { id: { $in: deletedIds } } }));
+    promise.push(this.app.orm.QuizsMap.bulkCreate(dataArray))
+
+    Promise.all(promise).then(function() {
+      console.log("qqqqqqqqq");
+      reply({
+        status: 200,
+        message: 'Quiz Has been updated successfully'
+      })
     })
+
+
+  }
+
+  getAllQuiz(request, reply) {
+    console.log('here I am', request.query)
+    let query = {};
+    if (request.query.id !== undefined) {
+      if (request.query.association === 'All') {
+        query = {
+          where: {
+            id: request.query.id
+          },
+          include: [{
+            model: this.app.orm.QuizsMap,
+            as: "quizsMap",
+            include: [{
+              model: this.app.orm.QuizQuestions,
+              as: "qusetionMap",
+              include: [{
+                model: this.app.orm.QuizAnswers,
+                as: "answersForQuestions"
+              }]
+            }]
+          }]
+        }
+      } else {
+        query = {
+          where: {
+            id: request.query.id
+          },
+          include: [{
+            model: this.app.orm.QuizsMap,
+            as: "quizsMap",
+          }]
+        }
+      }
+    } else {
+      if (request.query.association === 'All') {
+        query = {
+          include: [{
+            model: this.app.orm.QuizsMap,
+            as: "quizsMap",
+            include: [{
+              model: this.app.orm.QuizQuestions,
+              as: "qusetionMap",
+              include: [{
+                model: this.app.orm.QuizAnswers,
+                as: "answersForQuestions"
+              }]
+            }]
+          }]
+        }
+      } else {
+        query = {
+          include: [{
+            model: this.app.orm.QuizsMap,
+            as: "quizsMap",
+          }]
+        }
+      }
+    }
+    this.app.orm.Quiz.findAll(query)
+      .then((response) => {
+        reply({ status: 200, message: 'Request successfully completed.', data: response })
+      })
   }
 
   getQuiz(request, reply) {
@@ -27,11 +129,15 @@ module.exports = class QuizController extends Controller {
         id: request.query.id
       },
       include: [{
-        model: this.app.orm.QuizQuestions,
-        as: "questionsForQuiz",
+        as: 'quizsMap',
+        model: this.app.orm.QuizsMap,
         include: [{
-          model: this.app.orm.QuizAnswers,
-          as: "answersForQuestions"
+          model: this.app.orm.QuizQuestions,
+          as: "qusetionMap",
+          include: [{
+            model: this.app.orm.QuizAnswers,
+            as: "answersForQuestions"
+          }]
         }]
       }]
     }).then((response) => {
@@ -78,7 +184,15 @@ module.exports = class QuizController extends Controller {
       this.app.orm.Quiz.findOne({
         where: {
           id: request.query.id
-        }
+        },
+        include: [{
+          as: 'quizsMap',
+          model: this.app.orm.QuizsMap,
+          include: [{
+            as: 'qusetionMap',
+            model: this.app.orm.QuizQuestions,
+          }]
+        }]
       }).then((quiz) => {
         this.app.orm.Users.findAll({
           include: [{
@@ -109,11 +223,15 @@ module.exports = class QuizController extends Controller {
         id: request.query.id
       },
       include: [{
-        model: this.app.orm.QuizQuestions,
-        as: "questionsForQuiz",
+        as: 'quizsMap',
+        model: this.app.orm.QuizsMap,
         include: [{
-          model: this.app.orm.QuizAnswers,
-          as: "answersForQuestions"
+          as: 'qusetionMap',
+          model: this.app.orm.QuizQuestions,
+          include: [{
+            model: this.app.orm.QuizAnswers,
+            as: "answersForQuestions"
+          }]
         }]
       }]
     }).then((response) => {
@@ -138,4 +256,16 @@ module.exports = class QuizController extends Controller {
       })
     })
   }
+
+  delete(request, reply) {
+    console.log(request.query);
+    this.app.orm.Quiz.destroy({
+      where: {
+        id: request.query.id
+      }
+    }).then((res) => {
+      reply({ status: 200, message: 'Request successfully completed.', data: {} })
+    })
+  }
+
 }

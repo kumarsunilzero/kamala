@@ -16,40 +16,32 @@
                                 
                             </h2>
                     </div>
-                    <div class="body table-responsive">
+                    <div class="body">
                         <form from="addQuiz" novalidate>
                             <div class="row clearfix">
-                                <div class="col-sm-12 form-group">
+                                <div class="col-md-12">
                                     <label>Title</label>
                                     <div class="form-line">
-                                        <input type="text" class="form-control" placeholder="Title" ng-model='ctrl.quizObj.title'>
+                                        <div ckeditor="ctrl.options" ng-model="ctrl.quizObj.title" ready="ctrl.onReady()"></div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 form-group">
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-12">
                                     <label>Description</label>
                                     <div class="form-line">
-                                        <textarea rows="4" class="form-control no-resize" placeholder="Description ..." ng-model='ctrl.quizObj.description'></textarea>
+                                        <div ckeditor="ctrl.options" ng-model="ctrl.quizObj.description" ready="ctrl.onReady()"></div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 form-group">
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-3">
                                     <label>Total time</label>
                                     <div class="form-line">
                                         <input type="number" class="form-control no-resize" placeholder="Total time (seconds) ..." ng-model='ctrl.quizObj.totaltime'>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 form-group">
-                                    <label>Marks</label>
-                                    <div class="form-line">
-                                        <input type="number" class="form-control no-resize" placeholder="marks ..." ng-model='ctrl.quizObj.marks'>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 form-group">
-                                    <label>Total Score</label>
-                                    <div class="form-line">
-                                        <input type="number" class="form-control no-resize" placeholder="total score ..." ng-model='ctrl.quizObj.totalscore'>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 form-group">
+                                <div class="col-md-3">
                                     <label>Level</label>
                                     <ui-select ng-model='ctrl.quizObj.level' theme="bootstrap" title="Choose a level" required>
                                         <ui-select-match placeholder="Select a Level ">{{$select.selected}}</ui-select-match>
@@ -58,7 +50,9 @@
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
-                                <div class="col-sm-12 form-group">
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-6">
                                     <label>Type</label>
                                     <div class="form-line">
                                         <ui-select ng-model='ctrl.quizObj.type' theme="bootstrap" title="Choose a type" required>
@@ -70,14 +64,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row clearfix">
+                            <!--  <div class="row clearfix">
                                 <div class="col-sm-12 form-group">
-                                    <button class="btn btn-primary pull-right" type="file" ngf-select ng-model="ctrl.quizQuestions" ngf-change="ctrl.configureExcelFile($file)">ADD</button>
+                                    <button class="btn btn-primary pull-right" type="button" ng-click="ctrl.popQuestionModel()">ADD</button>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row clearfix">
                                 <div class="col-sm-12 form-group">
-                                    <div ui-grid="ctrl.quizQuestionsGrid" ui-grid-grouping ui-grid-auto-resize ui-grid-resize-columns></div>
+                                    <div ui-grid="ctrl.questionlistGrid" ui-grid-selection ui-grid-grouping ui-grid-auto-resize ui-grid-resize-columns ui-grid-pagination class="quizquestionlist"></div>
                                 </div>
                             </div>
                             <div class="row">
@@ -87,10 +81,9 @@
                                 </div>
                             </div>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+    <div ng-include src="'template/quiz/modals/queslistmodal.html'"></div>
 </section>

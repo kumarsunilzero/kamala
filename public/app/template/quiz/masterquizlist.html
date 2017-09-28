@@ -6,20 +6,19 @@
                 <li><a href="javascript:void(0);">List</a></li>
             </ol>
         </div>
-        <div class="card">
+        <div class="card" ng-init="ctrl.initialLoadfunction()">
             <div class="header">
-                <h2>
-                                QUIZ 
-                                
-                            </h2>
+                <h2> QUIZ </h2>
             </div>
-            <div class="body table-responsive">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <button type="button" class="btn btn-primary pull-right" ui-sref="addquiz({type:'add'})">ADD</button>
+            <div class="body">
+                <div class="row clearfix">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 form-group">
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-1 col-xs-1 form-group">
+                        <button class="btn btn-primary pull-right" ui-sref="addquiz({type:'add',id:''})">ADD QUIZ</button>
                     </div>
                 </div>
-                <div class="row" ng-init="ctrl.initialLoadfunction()">
+                <div class="row">
                     <div class="col-lg-12">
                         <div ui-grid="ctrl.quizlistGrid" class="myGrid"></div>
                     </div>

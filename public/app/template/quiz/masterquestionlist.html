@@ -1,0 +1,35 @@
+<section class="content" ng-controller="allquestion as ctrl">
+    <div class="container-fluid">
+        <div class="block-header">
+            <ol class="breadcrumb">
+                <li><a href="javascript:void(0);">Question</a></li>
+                <li><a href="javascript:void(0);">List</a></li>
+            </ol>
+        </div>
+        <div class="card" ng-init="ctrl.initialLoadfunction()">
+            <div class="header">
+                <h2>
+                                QUESTIONS
+                                
+                            </h2>
+            </div>
+            <div class="body">
+                <div class="row clearfix">
+                    <div class="col-lg-8 col-md-8 col-sm-1 col-xs-1">
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-1 col-xs-1">
+                        <button class="btn btn-primary pull-right">IMPORT</button>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-1 col-xs-1">
+                        <button class="btn btn-primary pull-right" ui-sref="question({type:'add',id:''})">ADD QUESTION</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div ui-grid="ctrl.questionlistGrid" class="myGrid masterquestionlist" ui-grid-grouping ui-grid-auto-resize ui-grid-resize-columns ui-grid-pagination></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

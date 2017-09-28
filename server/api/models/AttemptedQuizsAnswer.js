@@ -17,7 +17,7 @@ module.exports = class AttemptedQuizsAnswer extends Model {
   }
   static schema(app, Sequelize) {
     return {
-      questionid: {
+      quizmapid: {
         type: Sequelize.INTEGER
       },
       option: {

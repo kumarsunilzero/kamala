@@ -1,0 +1,123 @@
+<section class="content" ng-controller="question as ctrl">
+    <toaster-container></toaster-container toaster-options="{'position-class': 'toast-bottom-right','close-button': true}">
+    <div class="container-fluid">
+        <div class="block-header">
+            <ol class="breadcrumb">
+                <li><a href="" ui-sref="quizlist">Quiz</a></li>
+                <li><a href="javascript:void(0);">Question</a></li>
+            </ol>
+        </div>
+        <div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                                Question Details
+                                
+                            </h2>
+                    </div>
+                    <div class="body">
+                        <!-- 
+                        <p ng-bind-html="ctrl.content"></p>
+                        <div ng-bind-html-unsafe="ctrl.content"></div> -->
+                        <form from="addQuestion" novalidate>
+                            <!-- <div class="row clearfix">
+                                <div class="col-md-12">
+                                    <div ckeditor="ctrl.options" ng-model="ctrl.content" ready="ctrl.onReady()"></div>
+                                </div>
+                            </div> -->
+                            <div class="row clearfix">
+                                <div class="col-md-12">
+                                    <label>Title</label>
+                                    <div class="form-line">
+                                        <div ckeditor="ctrl.options" ng-model="ctrl.questionObj.title" ready="ctrl.onReady()"></div>
+                                        <!--  <textarea rows="4" class="form-control no-resize" placeholder="Title ...(255 max)" ng-model='ctrl.questionObj.title' maxlength="255"></textarea> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-12">
+                                    <label>Explanation</label>
+                                    <div class="form-line">
+                                        <div ckeditor="ctrl.options" ng-model="ctrl.questionObj.explanation" ready="ctrl.onReady()"></div>
+                                        <!-- 
+                                        <textarea rows="4" class="form-control no-resize" placeholder="Description ...(255 max)" ng-model='ctrl.questionObj.explanation' maxlength="255"></textarea> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-2">
+                                    <label>Marks</label>
+                                    <div class="form-line">
+                                        <input type="number" class="form-control no-resize" placeholder="marks ..." ng-model='ctrl.questionObj.marks'>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Negative Mark</label>
+                                    <div class="form-line">
+                                        <input type="number" class="form-control no-resize" placeholder="negative mark ..." ng-model='ctrl.questionObj.negativemark'>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-3">
+                                    <label>Category</label>
+                                    <ui-select ng-model='ctrl.questionObj.category' theme="bootstrap" title="Choose a category" required>
+                                        <ui-select-match placeholder="Select a category ">{{$select.selected}}</ui-select-match>
+                                        <ui-select-choices repeat="level in ctrl.allAssociatedcategory">
+                                            {{level}}
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Tag</label>
+                                    <input type="text" class="form-control no-resize" placeholder="tag ..." ng-model='ctrl.questionObj.tag'>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <!-- <div class="col-md-5">
+                                    <label>Answers </label>
+                                    <textarea rows="4" class="form-control no-resize" placeholder="Answers ... (255 max)" ng-model='ctrl.answers' maxlength="255"></textarea>
+                                </div> -->
+                                <div class="col-md-12">
+                                    <button class="btn btn-primary pull-right" ng-click="ctrl.addAnswers()">ADD</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Correct Answer</th>
+                                            <th>Answer</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        <tr ng-repeat="list in ctrl.questionObj.answersForQuestions">
+                                            <td style="width: 10%;">
+                                                <div style="cursor: pointer;padding: 10px;font-weight: bold;font-size: 20px;" class="demo-radio-button" ng-click="ctrl.addCorrectAnswer($index)">
+                                                    <input type="radio" ng-model='answer' name="answer" ng-checked="list.iscorrectanswer" />
+                                                    <label></label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <textarea rows="2" class="form-control no-resize" placeholder="Answers ... (255 max)" ng-model="list.title" maxlength="255"></textarea>
+                                            </td>
+                                            <td style="width: 10%;" class="padding-10px"><i class="material-icons" ng-click='ctrl.removeAnswer($index)'>cancel</i></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <button class='btn btn-primary pull-right margin-left-10px' ng-click="ctrl.saveQuestion()">SAVE</button>
+                                    <button class='btn btn-default pull-right' ui-sref="quizlist">CANCEL</button>
+                                </div>
+                            </div>
+                            } }
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>

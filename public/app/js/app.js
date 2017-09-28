@@ -19,7 +19,9 @@ angular.module('mockquiz', [
         'ngFileUpload',
         'ngAnimate',
         'toaster',
-        'myApp.config'
+        'myApp.config',
+        'ckeditor',
+        'ngSanitize'
     ])
     .run(['$rootScope', '$state', function($rootScope, $state) {
         $rootScope.signOut = function() {

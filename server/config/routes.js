@@ -53,7 +53,6 @@ module.exports = [
     path: '/api/v1/quizs/',
     handler: 'QuizController.getAllQuiz'
   },
-
   {
     method: ['GET'],
     path: '/api/v1/quiz/',
@@ -81,7 +80,37 @@ module.exports = [
   {
     method: ['POST'],
     path: '/api/v1/quiz/add/',
-    handler: 'ViewController.addQuiz'
+    handler: 'QuizController.addQuiz'
+  },
+  {
+    method: ['POST'],
+    path: '/api/v1/quiz/update/',
+    handler: 'QuizController.updateQuiz'
+  },
+  {
+    method: ['DELETE'],
+    path: '/api/v1/quiz/delete/',
+    handler: 'QuizController.delete'
+  },
+  {
+    method: ['GET'],
+    path: '/api/v1/questions/',
+    handler: 'QuestionsController.getAllQuestions'
+  },
+  {
+    method: ['POST'],
+    path: '/api/v1/question/add/',
+    handler: 'QuestionsController.add'
+  },
+  {
+    method: ['POST'],
+    path: '/api/v1/question/update/',
+    handler: 'QuestionsController.update'
+  },
+  {
+    method: ['DELETE'],
+    path: '/api/v1/question/delete/',
+    handler: 'QuestionsController.delete'
   }
 
 ]

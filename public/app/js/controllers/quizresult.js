@@ -13,15 +13,15 @@ angular.module('mockquiz.controllers').controller('quizresult', ['$scope', '$sta
                 if (response.data.result[0].attemptForQualifyQuizs.length > 0) {
                     var resultData = response.data.result[0].attemptForQualifyQuizs[response.data.result[0].attemptForQualifyQuizs.length - 1];
                     for (var i in resultData.answersForAttemptedQuizs) {
-                        vm.quizAnsMap[resultData.answersForAttemptedQuizs[i].questionid] = resultData.answersForAttemptedQuizs[i].option;
+                        vm.quizAnsMap[resultData.answersForAttemptedQuizs[i].quizmapid] = resultData.answersForAttemptedQuizs[i].option;
                     }
                 }
                 vm.quizObj = response.data.quiz;
-                vm.totalscore = vm.quizObj.totalscore;
+                //vm.totalscore = vm.quizObj.totalscore;
                 console.log("----------", vm.quizAnsMap);
-                angular.forEach(vm.quizObj.questionsForQuiz, function(value, index) {
+                angular.forEach(vm.quizObj.quizsMap, function(value, index) {
                     var isAnswered = false;
-                    angular.forEach(value.answersForQuestions, function(val, index) {
+                    angular.forEach(value.qusetionMap.answersForQuestions, function(val, index) {
                         if (vm.quizAnsMap[value.id] !== undefined && vm.quizAnsMap[value.id] == val.id) {
                             isAnswered = true;
                         }

@@ -86,11 +86,45 @@ angular.module('mockquiz').config(['$stateProvider', function($stateProvider) {
                 }
             }
         })
+        .state('questionlist', {
+            url: "/questionlist",
+            views: {
+                "maincontent": {
+                    'templateUrl': "template/quiz/masterquestionlist.html"
+                },
+                "sidebar": {
+                    'templateUrl': "template/sidebar.html"
+                },
+                "header": {
+                    'templateUrl': "template/header.html"
+                },
+                "footer": {
+                    'templateUrl': "template/footer.html"
+                }
+            }
+        })
         .state('addquiz', {
-            url: "/addquiz/:type",
+            url: "/addquiz/:type/:id",
             views: {
                 "maincontent": {
                     'templateUrl': "template/quiz/addquiz.html"
+                },
+                "sidebar": {
+                    'templateUrl': "template/sidebar.html"
+                },
+                "header": {
+                    'templateUrl': "template/header.html"
+                },
+                "footer": {
+                    'templateUrl': "template/footer.html"
+                }
+            }
+        })
+        .state('question', {
+            url: "/question/:type/:id",
+            views: {
+                "maincontent": {
+                    'templateUrl': "template/quiz/addquestion.html"
                 },
                 "sidebar": {
                     'templateUrl': "template/sidebar.html"

@@ -4,6 +4,8 @@ angular.module('mockquiz.controllers').controller('addquiz', ['$scope', 'request
     vm.allAssociatedLevel = ['Easy', 'Hard', 'Medium'];
     vm.allAssociatedType = ['Multiple'];
     vm.questionExcelData = '';
+    vm.questionListApi = {};
+    vm.selectedQIds = [];
     vm.quizQuestionsGrid = {
         columnDefs: [{
                 displayName: 'Title',
@@ -20,19 +22,164 @@ angular.module('mockquiz.controllers').controller('addquiz', ['$scope', 'request
             {
                 displayName: 'Correct answer',
                 name: 'iscorrectanswer'
-            }
+            },
+            {
+                name: "answer",
+                width: "30%",
+                cellTemplate: "<div class='ui-grid-cell-contents'><ol><li ng-repeat='list in row.entity.answer'>{{list}}</li></ol></div>"
+            },
         ],
         data: []
     }
+    vm.options = {
+        language: 'en',
+        allowedContent: false,
+        entities: false,
+        extraPlugins: 'mathjax',
+        mathJaxClass: 'm-equation',
+        mathJaxLib: 'http://cdn.mathjax.org/mathjax/2.6-latest/MathJax.js?config=TeX-AMS_HTML'
+    };
+    vm.questionlistGrid = {
+        enableFiltering: true,
+        rowHeight: 30,
+        columnDefs: [{
+                width: '4%',
+                //name: 'name',
+                field: 'text',
+                headerCellTemplate: '<div class="ui-grid-cell-contents padding-10px"></div>',
+                suppressRemoveSort: true,
+                cellTemplate: '<div class="ui-grid-cell-contents padding-10px"><input type="checkbox" id="{{row.entity.id}}" class="filled-in" ng-checked="row.entity.isSelected" ng-click="grid.appScope.ctrl.checkAllQuestion(grid.renderContainers.body.visibleRowCache.indexOf(row),row.entity.id,row.entity.qmid)"><label for="{{row.entity.id}}"></label></div>',
+                cellClass: function(grid, row) {
+                    console.log(grid, row);
+                }
+            }, {
+                name: "title",
+                width: "30%",
+                cellTemplate: "<div ng-bind-html='row.entity.title'></div>"
+            },
+            {
+                name: "explanation",
+                width: "20%",
+                cellTemplate: "<div ng-bind-html='row.entity.explanation'></div>"
+            },
+            {
+                name: "subject",
+                width: "10%"
+            },
+            {
+                name: "category",
+                width: "10%"
+            },
+            {
+                name: "answer",
+                width: "30%",
+                cellTemplate: "<div class='ui-grid-cell-contents'><ol><li ng-repeat='list in row.entity.answer'>{{list}}</li></ol></div>"
+            },
+        ],
+        data: [],
+        onRegisterApi: function(gridApi) {
+            vm.questionListApi = gridApi;
+            console.log(gridApi)
+        }
+    }
     vm.quizObj = {};
+    vm.isHeaderSelected = false;
+    var addedqid = [];
+    var deletedqid = [];
+    var updatedqid = [];
+    vm.checkAllQuestion = function(index, id, qmid) {
+        console.log(vm.questionListApi, index, addedqid);
+
+        console.log(addedqid.indexOf(id));
+        if ($state.params.type === 'update') {
+
+
+            if (vm.questionListApi.grid.rows[index].entity.isSelected) {
+                if (qmid !== undefined) {
+                    (deletedqid.indexOf(qmid) === -1) ? deletedqid.push(qmid): '';
+                } else {
+                    updatedqid.splice(updatedqid.indexOf(id), 1);
+                }
+                vm.questionListApi.grid.rows[index].entity.isSelected = false;
+            } else {
+                if (qmid !== undefined) {
+                    deletedqid.splice(deletedqid.indexOf(qmid), 1);
+                } else {
+                    if (addedqid.indexOf(id) === -1) {
+                        (updatedqid.indexOf(id) === -1) ? updatedqid.push(id): '';
+                    }
+                }
+                vm.questionListApi.grid.rows[index].entity.isSelected = true;
+            }
+        } else {
+            if (vm.questionListApi.grid.rows[index].entity.isSelected) {
+                addedqid.splice(addedqid.indexOf(id), 1);
+                vm.questionListApi.grid.rows[index].entity.isSelected = false;
+            } else {
+                (addedqid.indexOf(id) === -1) ? addedqid.push(id): '';
+                vm.questionListApi.grid.rows[index].entity.isSelected = true;
+            }
+        }
+    }
+
     vm.initialLoadfunction = function() {
-        requestHandler.get('quizs/').query(function(response) {
-            //console.log("hh", response)
+        //$("#quesListModal").modal('show');
+
+        requestHandler.get('questions/').query(function(response) {
+            console.log("hh", response)
             if (response.status === 200) {
-                vm.quizlistArray = response.data;
+
+                //if ($state.params.type === 'update') {
+                requestHandler.get('quizs/', { id: $state.params.id, association: 1 }).query(function(res) {
+                    console.log("hhjjj", res)
+                    if (res.status === 200) {
+                        var selectedQIds = [];
+                        if ($state.params.type === 'update') {
+
+                            angular.forEach(res.data[0].quizsMap, function(val, ind) {
+                                addedqid.push(val.questionId);
+                                selectedQIds[val.questionId] = val.id;
+                            })
+                            vm.quizObj = {
+                                title: res.data[0].title,
+                                description: res.data[0].description,
+                                totaltime: res.data[0].totaltime,
+                                level: res.data[0].level,
+                                type: res.data[0].type,
+                                id: res.data[0].id
+                            }
+                        }
+                        var quesdataArray = [];
+                        console.log(selectedQIds, addedqid);
+                        angular.forEach(response.data, function(val, index) {
+                            var answerList = [];
+                            angular.forEach(val.answersForQuestions, function(value, ind) {
+                                answerList.push(value.title);
+                            })
+                            var obj = {
+                                title: val.title,
+                                explanation: val.explanation,
+                                marks: val.marks,
+                                category: val.category,
+                                subject: val.subject,
+                                answer: answerList,
+                                isSelected: (addedqid.indexOf(val.id) > -1) ? true : false,
+                                id: val.id,
+                                qmid: selectedQIds[val.id]
+                            }
+                            quesdataArray.push(obj)
+                        })
+                        vm.questionlistGrid.data = quesdataArray;
+                        console.log(quesdataArray);
+                    }
+                });
+                //}
+
             }
         });
     }
+
+    vm.initialLoadfunction();
 
     vm.configureExcelFile = function(file) {
         //console.log(file);
@@ -112,31 +259,47 @@ angular.module('mockquiz.controllers').controller('addquiz', ['$scope', 'request
         //console.log(">>>>>>>>>>", data);
         var dataArray = [];
         for (var i = 0; i < data.length; i++) {
+            var obj = {};
+            obj["title"] = data[i].title;
+            obj["explanation"] = data[i].explanation;
+            obj["answers"] = data[i].answersForQuestions[j].title;
+            obj["isSelected"] = false;
+            obj["answers"] = [];
             for (var j = 0; j < data[i].answersForQuestions.length; j++) {
-                var obj = {};
-                obj["title"] = data[i].title;
-                obj["answers"] = data[i].answersForQuestions[j].title;
-                obj["iscorrectanswer"] = data[i].answersForQuestions[j].iscorrectanswer;
-                obj["explanation"] = data[i].explanation;
-                dataArray.push(obj);
+                obj["answers"].push(data[i].answersForQuestions[j].title);
             }
+            dataArray.push(obj);
         }
         vm.quizQuestionsGrid.data = dataArray;
+        vm.questionListApi.grouping.groupColumn('title');
     }
+
     vm.saveQuiz = function() {
         var sendObj = {};
         sendObj = angular.extend(sendObj, vm.quizObj);
-        sendObj["questionsForQuiz"] = vm.questionExcelMap;
-        if (Object.keys(sendObj).length === 8) {
-            //console.log("----", sendObj);
-            requestHandler.post('quiz/add/').save(sendObj).$promise.then(function(res) {
-                if (res.status === 200) {
-                    $state.go('quizlist');
-                }
-            });
+        //sendObj["questionsForQuiz"] = vm.questionExcelMap;
+        console.log("********", sendObj, addedqid, deletedqid, updatedqid);
+
+        if (Object.keys(sendObj).length > 4) {
+            if (addedqid.length > 0) {
+                console.log("----", sendObj);
+                requestHandler.post('quiz/' + $state.params.type + '/').save({ quiz: sendObj, questions: addedqid, deletedqid: deletedqid, updatedqid: updatedqid }).$promise.then(function(res) {
+                    if (res.status === 200) {
+                        $state.go('quizlist');
+                    }
+                });
+            } else {
+                toaster.pop('error', 'Validation Error', 'Please Select Question');
+            }
         } else {
             toaster.pop('error', 'Validation Error', 'Please Fill All Fields');
         }
+    }
+
+    vm.addSelectedQuestion = function() {
+        $("#quesListModal").modal('hide');
+        var data = vm.questionListApi.selection.getSelectedRows();
+        generateGridData(data);
     }
 
 }])

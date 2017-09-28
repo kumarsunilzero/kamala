@@ -5,7 +5,7 @@ const Model = require('trails-model')
  *
  * @description A User model
  */
-module.exports = class Questions extends Model {
+module.exports = class QuizQuestions extends Model {
   static config(app, Sequelize) {
     return {
       migrate: 'alter',
@@ -21,6 +21,16 @@ module.exports = class Questions extends Model {
                 allowNull: false
               }
             })
+
+            models.QuizQuestions.hasMany(models.QuizsMap, {
+              as: 'questionsMap',
+              onDelete: 'CASCADE',
+              onUpdate: 'CASCADE',
+              foreignKey: {
+                allowNull: false,
+                name: 'questionId'
+              }
+            })
           }
         }
       }
@@ -33,6 +43,24 @@ module.exports = class Questions extends Model {
       },
       explanation: {
         type: Sequelize.STRING
+      },
+      subject: {
+        type: Sequelize.STRING
+      },
+      marks: {
+        type: Sequelize.INTEGER
+      },
+      category: {
+        type: Sequelize.STRING
+      },
+      subject: {
+        type: Sequelize.STRING
+      },
+      negativemark: {
+        type: Sequelize.INTEGER
+      },
+      totaltime: {
+        type: Sequelize.INTEGER
       }
     }
   }

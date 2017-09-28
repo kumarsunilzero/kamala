@@ -33,15 +33,15 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
                     if (response.data.result[0].attemptForQualifyQuizs.length > 0) {
                         var resultData = response.data.result[0].attemptForQualifyQuizs[response.data.result[0].attemptForQualifyQuizs.length - 1];
                         for (var i in resultData.answersForAttemptedQuizs) {
-                            vm.quizAnsMap[resultData.answersForAttemptedQuizs[i].questionid] = resultData.answersForAttemptedQuizs[i].option;
+                            vm.quizAnsMap[resultData.answersForAttemptedQuizs[i].quizmapid] = resultData.answersForAttemptedQuizs[i].option;
                         }
                     }
                     vm.quizObj = response.data.quiz;
-                    vm.totalscore = vm.quizObj.questionsForQuiz.length;
-                    angular.forEach(vm.quizObj.questionsForQuiz, function(value, index) {
+                    //vm.totalscore = vm.quizObj.questionsForQuiz.length;
+                    angular.forEach(vm.quizObj.quizsMap, function(value, index) {
                         var isAnswered = false;
                         //value.isExplanationEnabled = false;
-                        angular.forEach(value.answersForQuestions, function(val, index) {
+                        angular.forEach(value.qusetionMap.answersForQuestions, function(val, index) {
                             if (vm.quizAnsMap[value.id] !== undefined && vm.quizAnsMap[value.id] == val.id) {
                                 val["isSelected"] = true;
                             } else {
@@ -77,7 +77,7 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
     };
 
     vm.nextQuestion = function() {
-        if (vm.current_index < vm.quizObj.questionsForQuiz.length - 1) {
+        if (vm.current_index < vm.quizObj.quizsMap.length - 1) {
             vm.current_index++;
         } else if (vm.isQuizStartMode) {
             $("#lastQuesModal").modal('show');
@@ -92,7 +92,7 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
         //console.log(index, opt, qindex);
         if (vm.isQuizStartMode) {
             vm.selectedIndexs.push(qindex);
-            vm.quizObj.questionsForQuiz[vm.current_index].answersForQuestions.forEach(function(obj, ind) {
+            vm.quizObj.quizsMap[vm.current_index].qusetionMap.answersForQuestions.forEach(function(obj, ind) {
                 obj.isSelected = false;
                 if (index === ind) {
                     obj.isSelected = true;
@@ -104,7 +104,7 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
 
     vm.reviewQuestion = function() {
 
-        vm.quizObj.questionsForQuiz[vm.current_index]["isReview"] = true;
+        vm.quizObj.quizsMap[vm.current_index]["isReview"] = true;
         vm.nextQuestion();
     }
 
@@ -119,17 +119,17 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
         vm.sendObj['qualifyQuizId'] = vm.QualifiedQuizId;
         vm.sendObj['answersForAttemptedQuizs'] = [];
         vm.sendObj['isretake'] = false;
-        vm.sendObj['totalscore'] = quizscore.calculateQuizTotalScore(vm.quizObj.questionsForQuiz, vm.quizObj.marks, 0.25);
+        //vm.sendObj['totalscore'] = quizscore.calculateQuizTotalScore(vm.quizObj.quizsMap);
         vm.totalscore = vm.quizObj.totalscore;
-        angular.forEach(vm.quizObj.questionsForQuiz, function(value, index) {
+        angular.forEach(vm.quizObj.quizsMap, function(value, index) {
             var isAnswered = false;
             if (value.isReview) {
                 vm.mytotalreviewed++;
             }
-            angular.forEach(value.answersForQuestions, function(val, index) {
+            angular.forEach(value.qusetionMap.answersForQuestions, function(val, index) {
                 if (val.isSelected) {
                     isAnswered = true;
-                    vm.sendObj['answersForAttemptedQuizs'].push({ quizid: vm.quizObj.id, questionid: value.id, option: val.id });
+                    vm.sendObj['answersForAttemptedQuizs'].push({ quizid: vm.quizObj.id, quizmapid: value.id, option: val.id });
                 } else {}
             })
             if (!isAnswered) {

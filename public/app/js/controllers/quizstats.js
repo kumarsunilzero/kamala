@@ -12,7 +12,7 @@ angular.module('mockquiz.controllers').controller('quizstats', ['$scope', '$stat
     vm.getQuizInfo = function() {
 
         requestHandler.get('quiz/stats/', { id: $state.params.id, userid: parseInt($window.sessionStorage.userid) }).query(function(response) {
-            //console.log("hh", response)
+            console.log("hh", response)
             if (response.status === 200) {
                 vm.quizObj = response.data.quiz;
                 vm.allUsers = response.data.users;
