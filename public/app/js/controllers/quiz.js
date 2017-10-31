@@ -22,6 +22,7 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
     vm.getQuiz = function() {
 
         //$state.params.type = 'solution';
+        var userid = (isNaN(parseInt($window.sessionStorage.userid))) ? null : parseInt($window.sessionStorage.userid);
         console.log("hhhh", $state);
         if ($state.params.type === 'solution') {
             vm.isQuizStartMode = false;
@@ -56,7 +57,7 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
                 }
             });
         } else {
-            requestHandler.get('quiz/', { id: $state.params.id, userid: $window.sessionStorage.userid }).query(function(response) {
+            requestHandler.get('quiz/', { id: $state.params.id, userid: userid }).query(function(response) {
                 console.log("hh", response)
                 if (response.status === 200) {
                     vm.QualifiedQuizId = response.data.qualifiedquiz.id;
@@ -149,22 +150,34 @@ angular.module('mockquiz.controllers').controller('quiz', ['$scope', '$state', '
     vm.submitQuiz = function() {
 
         $("#quizStatModal").modal('hide');
-        $("#quizSubmit").modal('show');
+
         //console.log("????", vm.sendObj);
         vm.sendObj['iscomplete'] = true;
         vm.sendObj['attemptedon'] = new Date();
-        //console.log(vm.sendObj);
-        requestHandler.post('submitquiz/').save(vm.sendObj).$promise.then(function(res) {
-            console.log(res);
-            if (res.status === 200) {
-                console.log('herr');
+        console.log("herr", $window.sessionStorage.userid);
+        if ($window.sessionStorage.userid !== null && $window.sessionStorage.userid !== undefined) {
+            $("#quizSubmit").modal('show');
+            requestHandler.post('submitquiz/').save(vm.sendObj).$promise.then(function(res) {
+                console.log(res);
+                if (res.status === 200) {
+                    console.log('herr');
 
-                $("#quizSubmit").modal('hide');
-                $timeout(function() {
-                    $state.go('quizresult', { id: $state.params.id });
-                }, 1000);
-            }
-        })
+                    $("#quizSubmit").modal('hide');
+                    $timeout(function() {
+                        $state.go('quizresult', { id: $state.params.id });
+                    }, 1000);
+                }
+            })
+        } else {
+            $window.sessionStorage.isauthenticateduser = false;
+            $window.sessionStorage.quizid = $state.params.id;
+            $window.sessionStorage.qobj = JSON.stringify(vm.sendObj);
+            $timeout(function() {
+                $state.go("signin");
+            }, 1000);
+
+
+        }
     }
 
     vm.popCreditModal = function() {

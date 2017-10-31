@@ -42,7 +42,7 @@ angular.module('mockquiz').config(['$stateProvider', function($stateProvider) {
                     'templateUrl': "template/dashboard.html"
                 },
                 "sidebar": {
-                    'templateUrl': "template/sidebar.html"
+                    'templateUrl': "template/no-sidebar.html"
                 },
                 "header": {
                     'templateUrl': "template/header.html"
@@ -59,7 +59,7 @@ angular.module('mockquiz').config(['$stateProvider', function($stateProvider) {
                     'templateUrl': "template/quiz/quizlist.html"
                 },
                 "sidebar": {
-                    'templateUrl': "template/sidebar.html"
+                    'templateUrl': "template/no-sidebar.html"
                 },
                 "header": {
                     'templateUrl': "template/header.html"
@@ -76,7 +76,7 @@ angular.module('mockquiz').config(['$stateProvider', function($stateProvider) {
                     'templateUrl': "template/quiz/masterquizlist.html"
                 },
                 "sidebar": {
-                    'templateUrl': "template/sidebar.html"
+                    'templateUrl': "template/no-sidebar.html"
                 },
                 "header": {
                     'templateUrl': "template/header.html"
@@ -93,7 +93,7 @@ angular.module('mockquiz').config(['$stateProvider', function($stateProvider) {
                     'templateUrl': "template/quiz/masterquestionlist.html"
                 },
                 "sidebar": {
-                    'templateUrl': "template/sidebar.html"
+                    'templateUrl': "template/no-sidebar.html"
                 },
                 "header": {
                     'templateUrl': "template/header.html"
@@ -110,7 +110,7 @@ angular.module('mockquiz').config(['$stateProvider', function($stateProvider) {
                     'templateUrl': "template/quiz/addquiz.html"
                 },
                 "sidebar": {
-                    'templateUrl': "template/sidebar.html"
+                    'templateUrl': "template/no-sidebar.html"
                 },
                 "header": {
                     'templateUrl': "template/header.html"
@@ -127,7 +127,7 @@ angular.module('mockquiz').config(['$stateProvider', function($stateProvider) {
                     'templateUrl': "template/quiz/addquestion.html"
                 },
                 "sidebar": {
-                    'templateUrl': "template/sidebar.html"
+                    'templateUrl': "template/no-sidebar.html"
                 },
                 "header": {
                     'templateUrl': "template/header.html"
@@ -144,7 +144,7 @@ angular.module('mockquiz').config(['$stateProvider', function($stateProvider) {
                     'templateUrl': "template/quiz/quizdetails.html"
                 },
                 "sidebar": {
-                    'templateUrl': "template/sidebar.html"
+                    'templateUrl': "template/no-sidebar.html"
                 },
                 "header": {
                     'templateUrl': "template/header.html"

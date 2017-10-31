@@ -142,3 +142,7 @@
     .ui-grid-cell {
         height: auto !important;
     }
+
+    section.content {
+        margin: 100px 0 0 0 !important;
+    }

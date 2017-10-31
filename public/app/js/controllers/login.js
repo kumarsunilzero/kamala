@@ -1,10 +1,10 @@
-angular.module('mockquiz.controllers').controller('login', ['$scope', '$state', 'requestHandler', '$window', function($scope, $state, requestHandler, $window) {
+angular.module('mockquiz.controllers').controller('login', ['$scope', '$state', 'requestHandler', '$window', '$timeout', '$rootScope', function($scope, $state, requestHandler, $window, $timeout, $rootScope) {
     var vm = this;
     vm.user = {};
     vm.errorMessage = '';
     vm.signupdata = {};
     vm.login = function(type) {
-        console.log("----", vm.user);
+        //console.log("----", vm.user);
         var url = "";
         if (type === 'local') {
             url = 'login/';
@@ -12,10 +12,34 @@ angular.module('mockquiz.controllers').controller('login', ['$scope', '$state', 
             url = 'facebooklogin/';
         }
         requestHandler.post(url).save(vm.user).$promise.then(function(response) {
-            //console.log(response);
+            console.log(response);
             if (response.status === 200) {
                 $window.sessionStorage.userid = response.data.id;
-                $state.go('dashboard');
+                console.log("i am here", $window.sessionStorage.isauthenticateduser);
+                $window.sessionStorage.role = response.data.roleForUser.title;
+                $rootScope.role = response.data.roleForUser.title;
+                if ($window.sessionStorage.isauthenticateduser === 'false') {
+
+                    $window.sessionStorage.isauthenticateduser = true;
+                    var sendData = JSON.parse($window.sessionStorage.qobj);
+                    sendData["userid"] = response.data.id;
+                    sendData['quizid'] = $window.sessionStorage.quizid;
+                    requestHandler.post('submitquiz/').save(sendData).$promise.then(function(res) {
+                        console.log(res);
+                        if (res.status === 200) {
+                            console.log('herr');
+                            $timeout(function() {
+                                $state.go('quizresult', { id: $window.sessionStorage.quizid });
+                            }, 1000);
+                        }
+                    })
+                    // $state.go('quizresult', { id: $window.sessionStorage.quizid });
+                } else {
+
+                    $window.sessionStorage.isauthenticateduser = true;
+                    $state.go('dashboard');
+                }
+
             } else if (response.status === 404) {
                 vm.errorMessage = response.message;
             }

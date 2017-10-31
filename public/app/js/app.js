@@ -23,8 +23,10 @@ angular.module('mockquiz', [
         'ckeditor',
         'ngSanitize'
     ])
-    .run(['$rootScope', '$state', function($rootScope, $state) {
+    .run(['$rootScope', '$state', '$window', function($rootScope, $state, $window) {
         $rootScope.signOut = function() {
             $state.go('signin');
         }
+        console.log($window);
+        $rootScope.role = ($window.sessionStorage.role !== undefined) ? $window.sessionStorage.role : '';
     }])

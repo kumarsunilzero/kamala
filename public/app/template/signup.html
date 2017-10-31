@@ -1,4 +1,4 @@
-<div class="signup-page" ng-controller="login as ctrl">
+<div class="signup-page" ng-controller="login as ctrl" ng-controller="login as ctrl">
     <div class="signup-box">
         <div class="logo">
             <a href="javascript:void(0);">Mock<b>QUIZ</b></a>
@@ -6,58 +6,7 @@
         </div>
         <div class="card">
             <div class="body">
-                <form id="sign_up" name="sign_upform" novalidate>
-                    <div class="msg">Register a new membership</div>
-                    <div class="msg" style="color: red;">{{ctrl.errorMessage}}</div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">person</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="text" class="form-control" name="namesurname" placeholder="Name First Name" required autofocus ng-model='ctrl.signupdata.firstname'>
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">person</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="text" class="form-control" name="namelastname" placeholder="Name Last Name" required autofocus ng-model='ctrl.signupdata.lastname'>
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">email</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="email" class="form-control" name="email" placeholder="Email Address" required ng-model='ctrl.signupdata.email'>
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">lock</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="password" class="form-control" name="password" placeholder="Password" required ng-model='ctrl.signupdata.password'>
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">lock</i>
-                        </span>
-                        <div class="form-line">
-                            <input type="password" class="form-control" name="confirm" placeholder="Confirm Password" required ng-model='ctrl.signupdata.confpassword'>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox" name="terms" id="terms" class="filled-in chk-col-pink" ng-model='ctrl.signupdata.isagreeterms' required>
-                        <label for="terms">I read and agree to the <a href="javascript:void(0);">terms of usage</a>.</label>
-                    </div>
-                    <button class="btn btn-block btn-lg btn-danger waves-effect" type="submit" ng-click="ctrl.signup()">SIGN UP</button>
-                    <div class="m-t-25 m-b--5 align-center">
-                        <a ui-sref="signin">You already have a membership?</a>
-                    </div>
-                </form>
+                <div ng-include src="'template/signupform.html'"></div>
             </div>
         </div>
     </div>

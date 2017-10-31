@@ -28,7 +28,11 @@ module.exports = class DefaultController extends Controller {
     this.app.orm.Users.findOne({
       where: {
         email: email
-      }
+      },
+      include: [{
+        model: this.app.orm.Roles,
+        as: 'roleForUser'
+      }]
     }).then((user) => {
       console.log("---", user);
       if (user === null) {

@@ -10,8 +10,9 @@ angular.module('mockquiz.controllers').controller('quizstats', ['$scope', '$stat
     vm.istab3Selected = false;
     vm.istab4Selected = false;
     vm.getQuizInfo = function() {
-
-        requestHandler.get('quiz/stats/', { id: $state.params.id, userid: parseInt($window.sessionStorage.userid) }).query(function(response) {
+        var userid = (isNaN(parseInt($window.sessionStorage.userid))) ? null : parseInt($window.sessionStorage.userid);
+        console.log("-------", userid);
+        requestHandler.get('quiz/stats/', { id: $state.params.id, userid: userid }).query(function(response) {
             console.log("hh", response)
             if (response.status === 200) {
                 vm.quizObj = response.data.quiz;

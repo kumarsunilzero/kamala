@@ -8,6 +8,28 @@
                 </a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown btn" ui-sref="dashboard">
+                    <a href="javascript:void(0);" role="button">
+                            <span>DASHBOARD</span>
+                        </a>
+                </li>
+                <li class="dropdown btn" ui-sref="quizlist" ng-show='role !== "participant"'>
+                    <a href="javascript:void(0);" role="button">
+                            <span>QUIZ</span>
+                        </a>
+                </li>
+                <li class="dropdown btn" ui-sref="questionlist" ng-show='role !== "participant"'>
+                    <a href="javascript:void(0);" role="button">
+                            <span>QUESTION</span>
+                        </a>
+                </li>
+                <li class="dropdown btn" ui-sref="myquiz">
+                    <a href="javascript:void(0);" role="button">
+                            <span>MY QUIZ</span>
+                        </a>
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">

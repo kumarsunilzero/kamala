@@ -17,22 +17,41 @@
                             </h2>
                     </div>
                     <div class="body">
-                        <!-- 
-                        <p ng-bind-html="ctrl.content"></p>
-                        <div ng-bind-html-unsafe="ctrl.content"></div> -->
                         <form from="addQuestion" novalidate>
-                            <!-- <div class="row clearfix">
-                                <div class="col-md-12">
-                                    <div ckeditor="ctrl.options" ng-model="ctrl.content" ready="ctrl.onReady()"></div>
-                                </div>
-                            </div> -->
                             <div class="row clearfix">
                                 <div class="col-md-12">
                                     <label>Title</label>
                                     <div class="form-line">
                                         <div ckeditor="ctrl.options" ng-model="ctrl.questionObj.title" ready="ctrl.onReady()"></div>
-                                        <!--  <textarea rows="4" class="form-control no-resize" placeholder="Title ...(255 max)" ng-model='ctrl.questionObj.title' maxlength="255"></textarea> -->
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-md-12">
+                                    <button class="btn btn-primary pull-right" ng-click="ctrl.addAnswers()">ADD</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Correct Answer</th>
+                                            <th>Answer</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        <tr ng-repeat="list in ctrl.questionObj.answersForQuestions">
+                                            <td style="width: 10%;">
+                                                <div style="cursor: pointer;padding: 10px;font-weight: bold;font-size: 20px;" class="demo-radio-button" ng-click="ctrl.addCorrectAnswer($index)">
+                                                    <input type="radio" ng-model='answer' name="answer" ng-checked="list.iscorrectanswer" />
+                                                    <label></label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <textarea rows="2" class="form-control no-resize" placeholder="Answers ... (255 max)" ng-model="list.title" maxlength="255"></textarea>
+                                            </td>
+                                            <td style="width: 10%;" class="padding-10px"><i class="material-icons" ng-click='ctrl.removeAnswer($index)'>cancel</i></td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                             <div class="row clearfix">
@@ -74,45 +93,12 @@
                                     <input type="text" class="form-control no-resize" placeholder="tag ..." ng-model='ctrl.questionObj.tag'>
                                 </div>
                             </div>
-                            <div class="row clearfix">
-                                <!-- <div class="col-md-5">
-                                    <label>Answers </label>
-                                    <textarea rows="4" class="form-control no-resize" placeholder="Answers ... (255 max)" ng-model='ctrl.answers' maxlength="255"></textarea>
-                                </div> -->
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary pull-right" ng-click="ctrl.addAnswers()">ADD</button>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <table class="table table-bordered">
-                                        <tr>
-                                            <th>Correct Answer</th>
-                                            <th>Answer</th>
-                                            <th>Action</th>
-                                        </tr>
-                                        <tr ng-repeat="list in ctrl.questionObj.answersForQuestions">
-                                            <td style="width: 10%;">
-                                                <div style="cursor: pointer;padding: 10px;font-weight: bold;font-size: 20px;" class="demo-radio-button" ng-click="ctrl.addCorrectAnswer($index)">
-                                                    <input type="radio" ng-model='answer' name="answer" ng-checked="list.iscorrectanswer" />
-                                                    <label></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <textarea rows="2" class="form-control no-resize" placeholder="Answers ... (255 max)" ng-model="list.title" maxlength="255"></textarea>
-                                            </td>
-                                            <td style="width: 10%;" class="padding-10px"><i class="material-icons" ng-click='ctrl.removeAnswer($index)'>cancel</i></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-md-12 form-group">
                                     <button class='btn btn-primary pull-right margin-left-10px' ng-click="ctrl.saveQuestion()">SAVE</button>
                                     <button class='btn btn-default pull-right' ui-sref="quizlist">CANCEL</button>
                                 </div>
                             </div>
-                            } }
                     </div>
                     </form>
                 </div>

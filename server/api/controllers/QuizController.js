@@ -141,74 +141,111 @@ module.exports = class QuizController extends Controller {
         }]
       }]
     }).then((response) => {
-      this.app.orm.QualifiedQuizs.findOne({
-        where: {
-          UserId: request.query.userid,
-          quizId: request.query.id
-        },
-      }).then((res) => {
-        reply({ status: 200, data: { quiz: response, qualifiedquiz: res } });
-      })
+      if (request.query.userid !== undefined && request.query.userid !== null) {
+        this.app.orm.QualifiedQuizs.findOne({
+          where: {
+            UserId: request.query.userid,
+            quizId: request.query.id
+          },
+        }).then((res) => {
+          reply({ status: 200, data: { quiz: response, qualifiedquiz: res } });
+        })
+      } else {
+        reply({ status: 200, data: { quiz: response, qualifiedquiz: {} } });
+      }
     })
   }
 
   submitQuiz(request, reply) {
     //console.log(request.payload);
-    this.app.orm.AttemptedQuizs.create(request.payload, {
-      include: [{
-        model: this.app.orm.AttemptedQuizsAnswer,
-        as: 'answersForAttemptedQuizs',
-      }]
-    }).then((res) => {
-      reply({ status: 200, data: {}, message: 'Quiz Details Submitted successfully' })
-    }).catch((error) => {
-      console.log(error);
-    });
+    var data = JSON.parse(JSON.stringify(request.payload));
+    console.log(data, data.qualifyQuizId, data.userid, data.quizid);
+    if (data.qualifyQuizId == undefined) {
+      this.app.orm.QualifiedQuizs.findOrCreate({
+        where: {
+          UserId: data.userid,
+          quizId: data.quizid
+        },
+        defaults: {
+          UserId: data.userid,
+          quizId: data.quizid
+        }
+      }).spread((obj, isCreated) => {
+        data["qualifyQuizId"] = obj.id;
+
+        this.app.orm.AttemptedQuizs.create(data, {
+          include: [{
+            model: this.app.orm.AttemptedQuizsAnswer,
+            as: 'answersForAttemptedQuizs',
+          }]
+        }).then((res) => {
+          reply({ status: 200, data: {}, message: 'Quiz Details Submitted successfully' })
+        }).catch((error) => {
+          console.log(error);
+        });
+      });
+
+    } else {
+      this.app.orm.AttemptedQuizs.create(request.payload, {
+        include: [{
+          model: this.app.orm.AttemptedQuizsAnswer,
+          as: 'answersForAttemptedQuizs',
+        }]
+      }).then((res) => {
+        reply({ status: 200, data: {}, message: 'Quiz Details Submitted successfully' })
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
   }
 
   getQuizStats(request, reply) {
-    console.log("rr")
-    this.app.orm.QualifiedQuizs.findOrCreate({
+    console.log("rr", request.query.userid)
+
+    //if (isCreated) {
+    //} else {
+    this.app.orm.Quiz.findOne({
       where: {
-        UserId: request.query.userid,
-        quizId: request.query.id
+        id: request.query.id
       },
-      defaults: {
-        UserId: request.query.userid,
-        quizId: request.query.id
-      }
-    }).spread((obj, isCreated) => {
-      //if (isCreated) {
-      console.log('dddd', isCreated)
-      //} else {
-      this.app.orm.Quiz.findOne({
-        where: {
-          id: request.query.id
-        },
+      include: [{
+        as: 'quizsMap',
+        model: this.app.orm.QuizsMap,
         include: [{
-          as: 'quizsMap',
-          model: this.app.orm.QuizsMap,
+          as: 'qusetionMap',
+          model: this.app.orm.QuizQuestions,
+        }]
+      }]
+    }).then((quiz) => {
+      this.app.orm.Users.findAll({
+        include: [{
+          model: this.app.orm.QualifiedQuizs,
+          as: "qualifiedquizForUser",
+          where: {
+            quizId: request.query.id
+          },
           include: [{
-            as: 'qusetionMap',
-            model: this.app.orm.QuizQuestions,
+            model: this.app.orm.AttemptedQuizs,
+            as: "attemptForQualifyQuizs",
           }]
         }]
-      }).then((quiz) => {
-        this.app.orm.Users.findAll({
-          include: [{
-            model: this.app.orm.QualifiedQuizs,
-            as: "qualifiedquizForUser",
+      }).then((allquiz) => {
+        if (request.query.userid !== undefined && request.query.userid !== null) {
+          this.app.orm.QualifiedQuizs.findOrCreate({
             where: {
+              UserId: request.query.userid,
               quizId: request.query.id
             },
-            include: [{
-              model: this.app.orm.AttemptedQuizs,
-              as: "attemptForQualifyQuizs",
-            }]
-          }]
-        }).then((allquiz) => {
+            defaults: {
+              UserId: request.query.userid,
+              quizId: request.query.id
+            }
+          }).spread((obj, isCreated) => {
+            reply({ status: 200, data: { quiz: quiz, users: allquiz } })
+          })
+        } else {
           reply({ status: 200, data: { quiz: quiz, users: allquiz } })
-        })
+        }
       })
       //}
     }).catch((error) => {
