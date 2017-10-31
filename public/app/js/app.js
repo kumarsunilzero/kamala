@@ -28,5 +28,5 @@ angular.module('mockquiz', [
             $state.go('signin');
         }
         console.log($window);
-        $rootScope.role = ($window.sessionStorage.role !== undefined) ? $window.sessionStorage.role : '';
+        $rootScope.role = ($window.sessionStorage.role !== undefined) ? $window.sessionStorage.role : 'participant';
     }])
