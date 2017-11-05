@@ -16,12 +16,12 @@
                     <div class="body">
                         <div class="row clearfix">
                             <div class="col-xs-12">
-                                <h3>{{ctrl.quizObj.title}}</h3>
+                                <h3><div ng-bind-html="ctrl.quizObj.title"></div></h3>
                             </div>
                         </div>
                         <div class="row clearfix">
                             <div class="col-xs-9">
-                                {{ctrl.quizObj.description}}
+                                <div ng-bind-html="ctrl.quizObj.description"></div>
                             </div>
                             <div class="col-xs-3">
                                 <div class="row clearfix">

@@ -23,7 +23,10 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-20px height-480">
                         <div ng-repeat="qlist in ctrl.quizObj.quizsMap">
                             <div ng-if="ctrl.current_index === $index">
-                                <p style="font-size: 20px;"><b>Q.{{$index+1}} | </b>{{qlist.qusetionMap.title}}</p>
+                                <div style="font-size: 20px;"><b>Q.{{$index+1}} | </b>
+                                    <p ng-bind-html="qlist.qusetionMap.title">
+                                    </p>
+                                </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-repeat="opt in qlist.qusetionMap.answersForQuestions">
                                     <div ng-disabled="!ctrl.isQuizStartMode" style="cursor: pointer;padding: 10px;font-weight: bold;font-size: 20px;" class="demo-radio-button">
                                         <input type="radio" ng-model="$parent.title" name="qlist.qusetionMap.title" value="{{opt.title}}" required ng-checked="opt.isSelected" />
